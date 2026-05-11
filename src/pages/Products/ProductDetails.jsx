@@ -1,0 +1,241 @@
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import UserContext from "../../Context/UserContext";
+
+const ProductDetails = () => {
+
+    const { id } = useParams();
+
+    const navigate = useNavigate();
+
+    const { user } = useContext(UserContext);
+
+    const [product, setProduct] = useState(null);
+
+    const [quantity, setQuantity] = useState(1);
+
+    // FETCH PRODUCT
+    useEffect(() => {
+
+        const fetchProduct = async () => {
+
+            try {
+
+                const res = await axios.get(
+                    `http://localhost:3000/products/${id}`
+                );
+
+                setProduct(res.data);
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+            }
+
+        };
+
+        fetchProduct();
+
+    }, [id]);
+
+    // ADD TO CART
+    const addToCart = async () => {
+
+        // NOT LOGIN
+        if (!user) {
+
+            navigate("/login");
+
+            return;
+
+        }
+
+        try {
+
+            // GET CART
+            const res = await axios.get(
+                "http://localhost:3000/cart"
+            );
+
+            const cartData = res.data;
+
+            // CHECK PRODUCT
+            const existingProduct = cartData.find(
+                (item) => item.productId === product.id
+            );
+
+            // UPDATE PRODUCT
+            if (existingProduct) {
+
+                const updatedItem = {
+
+                    ...existingProduct,
+
+                    quantity:
+                        existingProduct.quantity + quantity,
+
+                };
+
+                await axios.put(
+                    `http://localhost:3000/cart/${existingProduct.id}`,
+                    updatedItem
+                );
+
+            }
+
+            // NEW PRODUCT
+            else {
+
+                const cartItem = {
+
+                    productId: product.id,
+
+                    name: product.name,
+
+                    price: product.price,
+
+                    image: product.image,
+
+                    quantity: quantity,
+
+                };
+
+                await axios.post(
+                    "http://localhost:3000/cart",
+                    cartItem
+                );
+
+            }
+
+            // REDIRECT
+            navigate("/cart");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+    // LOADING
+    if (!product) {
+
+        return (
+
+            <div className="bg-black min-h-screen flex items-center justify-center text-white text-3xl">
+
+                Loading...
+
+            </div>
+
+        );
+
+    }
+
+    return (
+
+        <div className="bg-black min-h-screen text-white px-6 py-16">
+
+            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+
+                {/* IMAGE */}
+                <div className="bg-[#111] border border-gray-800 rounded-[35px] p-8 flex items-center justify-center">
+
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full max-w-[500px] object-contain"
+                    />
+
+                </div>
+
+                {/* CONTENT */}
+                <div>
+
+                    <p className="text-[#D4AF37] uppercase tracking-[6px] text-sm mb-4">
+
+                        Luxury Collection
+
+                    </p>
+
+                    <h1 className="text-5xl font-bold mb-6">
+
+                        {product.name}
+
+                    </h1>
+
+                    <p className="text-gray-400 text-lg leading-8 mb-8">
+
+                        {product.description}
+
+                    </p>
+
+                    <h2 className="text-[#D4AF37] text-5xl font-bold mb-10">
+
+                        ₹{product.price}
+
+                    </h2>
+
+                    {/* BUTTONS */}
+                    <div className="flex items-center gap-6">
+
+                        {/* QUANTITY */}
+                        <div className="flex items-center bg-[#111] border border-gray-800 rounded-2xl overflow-hidden">
+
+                            <button
+                                onClick={() =>
+                                    quantity > 1 &&
+                                    setQuantity(quantity - 1)
+                                }
+                                className="px-6 py-4 text-2xl hover:bg-[#1a1a1a]"
+                            >
+                                -
+                            </button>
+
+                            <span className="px-8 text-xl font-semibold">
+
+                                {quantity}
+
+                            </span>
+
+                            <button
+                                onClick={() =>
+                                    setQuantity(quantity + 1)
+                                }
+                                className="px-6 py-4 text-2xl hover:bg-[#1a1a1a]"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                        {/* ADD TO CART */}
+                        <button
+                            onClick={addToCart}
+                            className="bg-[#D4AF37] text-black px-10 py-4 rounded-2xl text-lg font-bold hover:scale-105 duration-300"
+                        >
+
+                            Add To Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
+};
+
+export default ProductDetails;

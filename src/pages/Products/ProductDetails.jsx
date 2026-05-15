@@ -9,7 +9,7 @@ const ProductDetails = () => {
 
     const navigate = useNavigate();
 
-    const { user } = useContext(UserContext);
+    const { user, loading } = useContext(UserContext);
 
     const [product, setProduct] = useState(null);
 
@@ -23,10 +23,10 @@ const ProductDetails = () => {
             try {
 
                 const res = await axios.get(
-                    `http://localhost:3000/products/${id}`
+                    `https://elitewrist-api.onrender.com/api/v1/products/${id}`
                 );
 
-                setProduct(res.data);
+                setProduct(res.data.product);
 
             }
 
@@ -56,62 +56,17 @@ const ProductDetails = () => {
 
         try {
 
-            // GET CART
-            const res = await axios.get(
-                "http://localhost:3000/cart"
-            );
-
-            const cartData = res.data;
-
-            // CHECK PRODUCT
-            const existingProduct = cartData.find(
-                (item) => item.productId === product.id
-            );
-
-            // UPDATE PRODUCT
-            if (existingProduct) {
-
-                const updatedItem = {
-
-                    ...existingProduct,
-
-                    quantity:
-                        existingProduct.quantity + quantity,
-
-                };
-
-                await axios.put(
-                    `http://localhost:3000/cart/${existingProduct.id}`,
-                    updatedItem
-                );
-
-            }
-
-            // NEW PRODUCT
-            else {
-
-                const cartItem = {
-
-                    productId: product.id,
-
-                    name: product.name,
-
-                    price: product.price,
-
-                    image: product.image,
-
+            const res = await axios.post(
+                "https://elitewrist-api.onrender.com/api/v1/user/cart/add",
+                {
+                    userId: user.id,
+                    productId: product._id,
                     quantity: quantity,
+                }
+            );
 
-                };
+            console.log(res.data);
 
-                await axios.post(
-                    "http://localhost:3000/cart",
-                    cartItem
-                );
-
-            }
-
-            // REDIRECT
             navigate("/cart");
 
         }

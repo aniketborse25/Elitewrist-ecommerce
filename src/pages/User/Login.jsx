@@ -10,21 +10,16 @@ const Login = () => {
     const { setUser } = useContext(UserContext);
 
     const [loginData, setLoginData] = useState({
-
         email: "",
         password: "",
-
     });
 
     // HANDLE INPUT
     const handleChange = (e) => {
 
         setLoginData({
-
             ...loginData,
-
             [e.target.name]: e.target.value,
-
         });
 
     };
@@ -36,40 +31,38 @@ const Login = () => {
 
         try {
 
-            const res = await axios.get(
-                `http://localhost:3000/users?email=${loginData.email}`
-            );
+            const res = await axios.post(
+                "https://elitewrist-api.onrender.com/api/v1/user/login",
+                {
+                    email: loginData.email,
+                    password: loginData.password,
+                }
 
+            );
+            console.log(res.data);
+            // API RESPONSE
             const data = res.data;
 
-            // VALID USER
-            if (
-                data.length > 0 &&
-                data[0].password === loginData.password
-            ) {
+            // SAVE USER
+            localStorage.setItem(
+                "userdata",
+                JSON.stringify(res.data)
+            );
 
-                localStorage.setItem(
-                    "userdata",
-                    JSON.stringify(data[0])
-                );
+            setUser(res.data);
 
-                setUser(data[0]);
+            setUser(res.data);
+            setUser(data.user);
 
-                navigate("/");
-
-            }
-
-            else {
-
-                alert("Invalid Email or Password");
-
-            }
+            navigate("/");
 
         }
 
         catch (error) {
 
             console.log(error);
+
+            alert("Invalid Email or Password");
 
         }
 

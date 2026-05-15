@@ -18,8 +18,8 @@ import Profile from "./pages/User/Profile";
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
-import AddProduct from "./pages/Products/AddProduct";
-import EditProduct from "./pages/Products/EditProducts";
+// import AddProduct from "./pages/Products/AddProduct";
+// import EditProduct from "./pages/Products/EditProducts";
 import Orders from "./pages/Orders";
 import Checkout from "./pages/Chekout";
 
@@ -37,15 +37,13 @@ function App() {
 
 
         {/* Dynamic Product Details */}
-        <Route
-          path="/product/:id"
-          element={<ProductDetails />}
-        />
-        <Route path="/add-product" element={<AddProduct />} />
-        <Route
+        <Route path="/product/:id"
+          element={<ProductDetails />} />
+        {/* <Route path="/add-product" element={<AddProduct />} /> */}
+        {/* <Route
           path="/edit-product/:id"
           element={<EditProduct />}
-        />
+        /> */}
         <Route path="/orders" element={<Orders />} />
         <Route path="/checkout" element={<Checkout />} />
 

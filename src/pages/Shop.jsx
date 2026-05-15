@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductCard from "../Components/Productcard";
+import ProductCard from "../Components/ProductCard";
 
 const Shop = () => {
 
@@ -12,10 +12,13 @@ const Shop = () => {
         try {
 
             const res = await axios.get(
-                "http://localhost:3000/products"
+                "https://elitewrist-api.onrender.com/api/v1/products"
             );
 
-            setProducts(res.data);
+            setProducts(res.data.products);
+            console.log("Data:", res.data.products)
+            console.log("o id:", res.data.products[0]._id)
+
 
         }
 
@@ -24,6 +27,8 @@ const Shop = () => {
             console.log(error);
 
         }
+        console.log("o id:", res.data.products[0].id)
+
 
     };
 
@@ -69,7 +74,7 @@ const Shop = () => {
                     {products.map((product) => (
 
                         <ProductCard
-                            key={product.id}
+                            key={product._id}
                             product={product}
                         />
 

@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart, User, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import UserContext from "../Context/UserContext";
 
 const Navbar = () => {
+
+    // USER CONTEXT
+    const { user } = useContext(UserContext);
 
     // Cart Count State
     const [cartCount, setCartCount] = useState(0);
@@ -13,19 +17,22 @@ const Navbar = () => {
 
         const getCart = async () => {
 
+            // NO USER
+            if (!user) return;
+
             try {
 
                 const res = await axios.get(
-                    "http://localhost:3000/cart"
+                    `https://elitewrist-api.onrender.com/api/v1/user/cart/${user.id}`
                 );
 
-                // Total Quantity Count
-                const totalItems = res.data.reduce(
-                    (total, item) => total + item.quantity,
+                // TOTAL QUANTITY
+                const totalQuantity = (res.data.items || []).reduce(
+                    (acc, item) => acc + item.quantity,
                     0
                 );
 
-                setCartCount(totalItems);
+                setCartCount(totalQuantity);
 
             }
 
@@ -39,9 +46,10 @@ const Navbar = () => {
 
         getCart();
 
-    }, []);
+    }, [user]);
 
     return (
+
         <nav className="bg-black text-white sticky top-0 z-50 border-b border-gray-800">
 
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -85,6 +93,7 @@ const Navbar = () => {
                         to="/cart"
                         className="relative hover:text-[#D4AF37] transition duration-300"
                     >
+
                         <ShoppingCart size={22} />
 
                         {/* Cart Count */}
@@ -93,6 +102,7 @@ const Navbar = () => {
                             {cartCount}
 
                         </span>
+
                     </Link>
 
                     {/* User */}
@@ -100,13 +110,19 @@ const Navbar = () => {
                         to="/profile"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
+
                         <User size={22} />
+
                     </Link>
 
                 </div>
+
             </div>
+
         </nav>
+
     );
+
 };
 
 export default Navbar;

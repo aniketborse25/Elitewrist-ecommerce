@@ -29,7 +29,7 @@ const Register = () => {
         try {
 
             await axios.post(
-                "http://localhost:3000/users",
+                "https://elitewrist-api.onrender.com/api/v1/user/register",
                 newUser
             );
 

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+
   return (
     <div className="bg-[#111] rounded-2xl overflow-hidden border border-gray-800 hover:border-yellow-500 transition duration-300">
 
@@ -23,7 +24,7 @@ const ProductCard = ({ product }) => {
         </p>
 
         {/* IMPORTANT */}
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id}`}>
 
           <button className="w-full bg-yellow-500 text-black py-2 rounded-lg font-semibold">
             View Details

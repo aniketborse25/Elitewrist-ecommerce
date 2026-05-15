@@ -5,98 +5,72 @@ import UserContext from "../Context/UserContext";
 
 const Cart = () => {
 
-    const { user } = useContext(UserContext);
+    // USER
+    const { user, loading } = useContext(UserContext);
 
+    // NAVIGATE
     const navigate = useNavigate();
 
+    // CART STATE
     const [cartItems, setCartItems] = useState([]);
 
     // PROTECT PAGE
+    if (loading) {
+        return <h1>Loading...</h1>;
+    }
+
     if (!user) {
         return <Navigate to="/login" />;
     }
-
     // FETCH CART
     const getCart = async () => {
 
-        const res = await axios.get(
-            "http://localhost:3000/cart"
-        );
+        try {
 
-        setCartItems(res.data);
+            const res = await axios.get(
+                `https://elitewrist-api.onrender.com/api/v1/user/cart/${user.id}`
+            );
+            console.log(res.data);
+            setCartItems(res.data.items);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
 
     };
 
+    // RUN ONCE
     useEffect(() => {
+
         getCart();
+
     }, []);
 
-    // DELETE
-    const deleteItem = async (id) => {
-
-        await axios.delete(
-            `http://localhost:3000/cart/${id}`
-        );
-
-        getCart();
-
-    };
-
-    // INCREASE
-    const increase = async (item) => {
-
-        item.quantity++;
-
-        await axios.put(
-
-            `http://localhost:3000/cart/${item.id}`,
-
-            item
-
-        );
-
-        getCart();
-
-    };
-    const decrease = async (item) => {
-
-        if (item.quantity <= 1) return;
-
-        item.quantity--;
-
-        await axios.put(
-
-            `http://localhost:3000/cart/${item.id}`,
-
-            item
-
-        );
-
-        getCart();
-
-    };
-
     // TOTAL
-    const total = cartItems.reduce(
+    let total = 0;
 
-        (sum, item) =>
+    cartItems.forEach((item) => {
 
-            sum + item.price * item.quantity,
+        total += item.productId.price * item.quantity;
 
-        0
-
-    );
+    });
 
     return (
 
         <div className="bg-black min-h-screen text-white p-10">
 
+            {/* TITLE */}
             <h1 className="text-5xl font-bold mb-10">
 
-                Cart
+                Shopping Cart
 
             </h1>
 
+            {/* EMPTY CART */}
             {cartItems.length === 0 ? (
 
                 <h2 className="text-2xl text-gray-400">
@@ -115,69 +89,42 @@ const Cart = () => {
                         {cartItems.map((item) => (
 
                             <div
-                                key={item.id}
+                                key={item._id}
                                 className="bg-[#111] border border-gray-800 rounded-3xl p-5 flex items-center gap-5"
                             >
 
                                 {/* IMAGE */}
                                 <img
-                                    src={item.image}
-                                    alt={item.name}
+                                    src={item.productId.image}
+                                    alt={item.productId.name}
                                     className="w-32 h-32 object-contain bg-black rounded-2xl"
                                 />
 
                                 {/* INFO */}
                                 <div className="flex-1">
 
+                                    {/* NAME */}
                                     <h2 className="text-2xl font-bold mb-3">
 
-                                        {item.name}
+                                        {item.productId.name}
 
                                     </h2>
 
                                     {/* QUANTITY */}
-                                    <div className="flex items-center gap-4 mb-4">
+                                    <p className="text-xl font-bold mb-4">
 
-                                        <button
-                                            onClick={() => decrease(item)}
-                                            className="bg-[#222] w-10 h-10 rounded-xl"
-                                        >
-                                            -
-                                        </button>
+                                        Quantity: {item.quantity}
 
-                                        <span className="text-xl">
-
-                                            {item.quantity}
-
-                                        </span>
-
-                                        <button
-                                            onClick={() => increase(item)}
-                                            className="bg-[#222] w-10 h-10 rounded-xl"
-                                        >
-                                            +
-                                        </button>
-
-                                    </div>
+                                    </p>
 
                                     {/* PRICE */}
                                     <p className="text-[#D4AF37] text-2xl font-bold">
 
-                                        ₹{item.price * item.quantity}
+                                        ₹{item.productId.price * item.quantity}
 
                                     </p>
 
                                 </div>
-
-                                {/* DELETE */}
-                                <button
-                                    onClick={() => deleteItem(item.id)}
-                                    className="bg-red-500 px-5 py-3 rounded-xl"
-                                >
-
-                                    Remove
-
-                                </button>
 
                             </div>
 
@@ -190,10 +137,11 @@ const Cart = () => {
 
                         <h2 className="text-3xl font-bold mb-8">
 
-                            Summary
+                            Order Summary
 
                         </h2>
 
+                        {/* TOTAL */}
                         <div className="flex justify-between text-xl mb-6">
 
                             <span>Total</span>

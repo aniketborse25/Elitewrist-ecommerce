@@ -98,7 +98,16 @@
       "description": "Luxury gold premium watch with elite craftsmanship."
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "productId": "2",
+      "name": "Classic Brown Strap",
+      "price": 14999,
+      "image": "/images/classic-brown-strap.png",
+      "quantity": 1,
+      "id": "EqOKCcv4LzU"
+    }
+  ],
   "orders": [
     {
       "customer": {
@@ -137,6 +146,82 @@
       ],
       "total": 94995,
       "id": "Rm5vwh6AVNA"
+    },
+    {
+      "customer": {
+        "name": "Aniket Borse",
+        "address": "Matoshree Colony",
+        "phone": "08459928834"
+      },
+      "items": [
+        {
+          "productId": "1",
+          "name": "Chronograph Blue",
+          "price": 18999,
+          "image": "/images/chronograph-blue.png",
+          "quantity": 2,
+          "id": "UUgdUp0GJno"
+        }
+      ],
+      "total": 37998,
+      "id": "X0EOMthcHQA"
+    },
+    {
+      "customer": {
+        "name": "Aniket Borse",
+        "address": "Matoshree Colony",
+        "phone": "08459928835"
+      },
+      "items": [
+        {
+          "productId": "1",
+          "name": "Chronograph Blue",
+          "price": 18999,
+          "image": "/images/chronograph-blue.png",
+          "quantity": 1,
+          "id": "N6pbmLgS9fQ"
+        }
+      ],
+      "total": 18999,
+      "id": "MGxZSXFskPU"
+    },
+    {
+      "customer": {
+        "name": "Aniket Borse",
+        "address": "Matoshree Colony",
+        "phone": "08459928835"
+      },
+      "items": [
+        {
+          "productId": "1",
+          "name": "Chronograph Blue",
+          "price": 18999,
+          "image": "/images/chronograph-blue.png",
+          "quantity": 3,
+          "id": "JNu0wTefOiw"
+        }
+      ],
+      "total": 56997,
+      "id": "pKu3WSY2F9g"
+    },
+    {
+      "customer": {
+        "name": "Aniket Borse",
+        "address": "Matoshree Colony",
+        "phone": "08459928836"
+      },
+      "items": [
+        {
+          "productId": "3",
+          "name": "Luxury Leather Watch",
+          "price": 22999,
+          "image": "/images/luxury-leather-watch.png",
+          "quantity": 2,
+          "id": "7oxt9y3xJ8s"
+        }
+      ],
+      "total": 45998,
+      "id": "1amy8Al_A1Q"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

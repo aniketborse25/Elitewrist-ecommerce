@@ -13,10 +13,10 @@ const FeaturedProducts = () => {
         try {
 
             const res = await axios.get(
-                "http://localhost:3000/products"
+                "https://elitewrist-api.onrender.com/api/v1/products"
             );
 
-            setProducts(res.data);
+            setProducts(res.data.products);
 
         }
 
@@ -63,7 +63,7 @@ const FeaturedProducts = () => {
                 {products.slice(0, 6).map((product) => (
 
                     <ProductCard
-                        key={product.id}
+                        key={product._id}
                         product={product}
                     />
 

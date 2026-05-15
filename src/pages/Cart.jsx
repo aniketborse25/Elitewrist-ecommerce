@@ -93,7 +93,7 @@ const Cart = () => {
                     shippingAddress,
                     phone,
                     paymentMethod,
-                }
+                }``
             );
 
             console.log(res.data);

@@ -50,13 +50,15 @@ const ProductDetails = () => {
     const addToCart = async () => {
 
         // NOT LOGIN
-        if (!user) {
+        // if (!user) {
 
-            navigate("/login");
+        //     navigate("/login");
 
-            return;
+        //     return;
+        //     console.log("data pppppppppp::", user);
 
-        }
+
+        // }
 
         try {
 

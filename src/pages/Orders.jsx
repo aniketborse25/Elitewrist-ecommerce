@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 import UserContext from "../Context/UserContext";
@@ -7,13 +8,13 @@ import Loader from "../Components/Loader";
 const Orders = () => {
 
     // USER
-    const { user } = useContext(UserContext);
+    const { user, loading } = useContext(UserContext);
 
     // ORDERS
     const [orders, setOrders] = useState([]);
 
-    // LOADING
-    const [loading, setLoading] = useState(true);
+    // PAGE LOADING
+    const [pageLoading, setPageLoading] = useState(true);
 
     // FETCH ORDERS
     const fetchOrders = async () => {
@@ -36,7 +37,7 @@ const Orders = () => {
 
         finally {
 
-            setLoading(false);
+            setPageLoading(false);
 
         }
 
@@ -53,8 +54,22 @@ const Orders = () => {
 
     }, [user]);
 
-    // LOADER
+    // USER LOADING
     if (loading) {
+
+        return <Loader />;
+
+    }
+
+    // NOT LOGIN
+    if (!user) {
+
+        return <Navigate to="/login" />;
+
+    }
+
+    // PAGE LOADING
+    if (pageLoading) {
 
         return <Loader />;
 

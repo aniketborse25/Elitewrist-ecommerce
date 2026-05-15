@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import UserContext from "../../Context/UserContext";
 
 const Login = () => {
@@ -37,23 +38,24 @@ const Login = () => {
                     email: loginData.email,
                     password: loginData.password,
                 }
-
             );
-            console.log(res.data);
+
+            console.log("loggin data:", res.data);
+
             // API RESPONSE
             const data = res.data;
 
-            // SAVE USER
+            // SAVE USER IN LOCAL STORAGE
             localStorage.setItem(
                 "userdata",
-                JSON.stringify(res.data)
+                JSON.stringify(data)
             );
+            // SAVE USER IN CONTEXT
+            setUser(data);
 
-            setUser(res.data);
 
-            setUser(res.data);
-            setUser(data.user);
 
+            // REDIRECT
             navigate("/");
 
         }
@@ -74,12 +76,14 @@ const Login = () => {
 
             <div className="bg-[#111] border border-gray-800 rounded-3xl p-10 w-full max-w-md">
 
+                {/* TITLE */}
                 <h1 className="text-white text-4xl font-bold text-center mb-8">
 
                     Login
 
                 </h1>
 
+                {/* FORM */}
                 <form
                     onSubmit={handleSubmit}
                     className="space-y-6"
@@ -119,6 +123,7 @@ const Login = () => {
 
                 </form>
 
+                {/* REGISTER */}
                 <p className="text-gray-400 mt-6 text-center">
 
                     Don't have an account?{" "}

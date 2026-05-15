@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, User, Search } from "lucide-react";
+import {
+    ShoppingCart,
+    Search,
+    UserCircle2
+} from "lucide-react";
+
 import { useEffect, useState, useContext } from "react";
+
 import axios from "axios";
+
 import UserContext from "../Context/UserContext";
 
 const Navbar = () => {
@@ -9,16 +16,22 @@ const Navbar = () => {
     // USER CONTEXT
     const { user } = useContext(UserContext);
 
-    // Cart Count State
+    // CART COUNT
     const [cartCount, setCartCount] = useState(0);
 
-    // Fetch Cart Data
+    // FETCH CART
     useEffect(() => {
 
         const getCart = async () => {
 
             // NO USER
-            if (!user) return;
+            if (!user) {
+
+                setCartCount(0);
+
+                return;
+
+            }
 
             try {
 
@@ -54,41 +67,57 @@ const Navbar = () => {
 
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-                {/* Logo */}
+                {/* LOGO */}
                 <Link to="/">
+
                     <h1 className="text-3xl font-bold tracking-wide">
-                        <span className="text-[#D4AF37]">Elite</span>Wrist
+
+                        <span className="text-[#D4AF37]">
+
+                            Elite
+
+                        </span>
+
+                        Wrist
+
                     </h1>
+
                 </Link>
 
-                {/* Menu */}
+                {/* MENU */}
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
 
                     <Link
                         to="/"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
+
                         Home
+
                     </Link>
 
                     <Link
                         to="/shop"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
+
                         Shop
+
                     </Link>
 
                 </div>
 
-                {/* Right Side Icons */}
+                {/* RIGHT SIDE */}
                 <div className="flex items-center gap-5">
 
-                    {/* Search */}
+                    {/* SEARCH */}
                     <button className="hover:text-[#D4AF37] transition duration-300">
+
                         <Search size={22} />
+
                     </button>
 
-                    {/* Cart */}
+                    {/* CART */}
                     <Link
                         to="/cart"
                         className="relative hover:text-[#D4AF37] transition duration-300"
@@ -96,22 +125,39 @@ const Navbar = () => {
 
                         <ShoppingCart size={22} />
 
-                        {/* Cart Count */}
-                        <span className="absolute -top-2 -right-2 bg-[#D4AF37] text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                        {/* SHOW COUNT ONLY IF LOGIN */}
+                        {user && cartCount > 0 && (
 
-                            {cartCount}
+                            <span className="absolute -top-2 -right-2 bg-[#D4AF37] text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
 
-                        </span>
+                                {cartCount}
+
+                            </span>
+
+                        )}
 
                     </Link>
 
-                    {/* User */}
+                    {/* PROFILE */}
                     <Link
-                        to="/profile"
+                        to={user ? "/profile" : "/login"}
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
 
-                        <User size={22} />
+                        {/* USER LOGIN */}
+                        {user ? (
+
+                            <div className="w-9 h-9 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-bold text-sm">
+
+                                {user.name.charAt(0).toUpperCase()}
+
+                            </div>
+
+                        ) : (
+
+                            <UserCircle2 size={28} />
+
+                        )}
 
                     </Link>
 

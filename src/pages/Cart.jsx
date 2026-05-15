@@ -130,21 +130,32 @@ const Cart = () => {
     // RUN
     useEffect(() => {
 
-        getCart();
+        if (user) {
+
+            getCart();
+
+        }
 
     }, [user]);
 
     // USER LOADING
-    if (loading || pageLoading) {
+    if (loading) {
 
         return <Loader />;
 
     }
 
-    // PROTECTED ROUTE
+    // NOT LOGIN
     if (!user) {
 
         return <Navigate to="/login" />;
+
+    }
+
+    // PAGE LOADING
+    if (pageLoading) {
+
+        return <Loader />;
 
     }
 

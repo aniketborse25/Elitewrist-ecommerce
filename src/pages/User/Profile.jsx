@@ -4,11 +4,21 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 import UserContext from "../../Context/UserContext";
 
+import Loader from "../../Components/Loader";
+
 const Profile = () => {
 
     const navigate = useNavigate();
 
-    const { user } = useContext(UserContext);
+    // USER CONTEXT
+    const { user, setUser, loading } = useContext(UserContext);
+
+    // USER LOADING
+    if (loading) {
+
+        return <Loader />;
+
+    }
 
     // NOT LOGIN
     if (!user) {
@@ -20,8 +30,13 @@ const Profile = () => {
     // LOGOUT
     const handleLogout = () => {
 
+        // CLEAR STORAGE
         localStorage.removeItem("userdata");
 
+        // CLEAR USER
+        setUser(null);
+
+        // REDIRECT
         navigate("/login");
 
     };
@@ -36,7 +51,7 @@ const Profile = () => {
                 {/* AVATAR */}
                 <div className="flex justify-center mb-6">
 
-                    <div className="w-20 h-20 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-3xl font-bold shadow-[0_0_25px_rgba(212,175,55,0.2)]">
+                    <div className="w-20 h-20 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-3xl font-bold">
 
                         {user.name.charAt(0).toUpperCase()}
 
@@ -44,7 +59,7 @@ const Profile = () => {
 
                 </div>
 
-                {/* USER INFO */}
+                {/* INFO */}
                 <div className="text-center">
 
                     <h1 className="text-2xl font-bold mb-2">
@@ -59,7 +74,6 @@ const Profile = () => {
 
                     </p>
 
-                    {/* GOLD LINE */}
                     <div className="w-12 h-[2px] bg-[#D4AF37] mx-auto my-5 rounded-full"></div>
 
                     <p className="text-[#D4AF37] uppercase tracking-[4px] text-[11px]">
@@ -73,30 +87,27 @@ const Profile = () => {
                 {/* BUTTONS */}
                 <div className="mt-8 space-y-3">
 
-                    {/* MY ORDERS */}
                     <button
                         onClick={() => navigate("/orders")}
-                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl text-base font-semibold hover:scale-[1.02] duration-300"
+                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold"
                     >
 
                         My Orders
 
                     </button>
 
-                    {/* HOME */}
                     <button
                         onClick={() => navigate("/")}
-                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl text-base font-medium hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
+                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl"
                     >
 
                         Back To Home
 
                     </button>
 
-                    {/* LOGOUT */}
                     <button
                         onClick={handleLogout}
-                        className="w-full border border-red-500/40 text-red-400 py-3 rounded-2xl text-base font-medium hover:bg-red-500 hover:text-white duration-300"
+                        className="w-full border border-red-500 text-red-400 py-3 rounded-2xl"
                     >
 
                         Logout

@@ -84,7 +84,7 @@ const ProductDetails = () => {
 
             console.log(res.data);
 
-            alert("Added To Cart 😎🔥");
+        
 
             navigate("/cart");
 

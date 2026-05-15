@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
+import Loader from "./Loader";
 
 const FeaturedProducts = () => {
 
-    // Store products
+    // PRODUCTS
     const [products, setProducts] = useState([]);
 
-    // Fetch products
+    // LOADING
+    const [loading, setLoading] = useState(true);
+
+    // FETCH PRODUCTS
     const getProducts = async () => {
 
         try {
@@ -26,38 +30,57 @@ const FeaturedProducts = () => {
 
         }
 
+        finally {
+
+            setLoading(false);
+
+        }
+
     };
 
-    // Run once
+    // RUN ONCE
     useEffect(() => {
 
         getProducts();
 
     }, []);
 
+    // LOADER
+    if (loading) {
+
+        return <Loader />;
+
+    }
+
     return (
 
         <section className="bg-black text-white py-24 px-10">
 
-            {/* Heading */}
+            {/* HEADING */}
             <div className="text-center mb-16">
 
                 <p className="text-[#D4AF37] tracking-[5px] uppercase text-sm mb-4">
+
                     Premium Collection
+
                 </p>
 
                 <h2 className="text-5xl font-bold mb-4">
+
                     Featured Watches
+
                 </h2>
 
                 <p className="text-gray-400 max-w-2xl mx-auto">
+
                     Explore our luxury collection crafted for elegance,
                     precision, and timeless style.
+
                 </p>
 
             </div>
 
-            {/* Products Grid */}
+            {/* PRODUCTS GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
                 {products.slice(0, 6).map((product) => (
@@ -74,6 +97,7 @@ const FeaturedProducts = () => {
         </section>
 
     );
+
 };
 
 export default FeaturedProducts;

@@ -2,7 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import axios from "axios";
+
 import UserContext from "../Context/UserContext";
+import Loader from "../Components/Loader";
 
 const Cart = () => {
 
@@ -12,8 +14,11 @@ const Cart = () => {
     // NAVIGATE
     const navigate = useNavigate();
 
-    // CART STATE
+    // CART ITEMS
     const [cartItems, setCartItems] = useState([]);
+
+    // PAGE LOADING
+    const [pageLoading, setPageLoading] = useState(true);
 
     // CHECKOUT STATES
     const [shippingAddress, setShippingAddress] = useState("");
@@ -42,9 +47,15 @@ const Cart = () => {
 
         }
 
+        finally {
+
+            setPageLoading(false);
+
+        }
+
     };
 
-    // REMOVE PRODUCT
+    // REMOVE ITEM
     const removeItem = async (productId) => {
 
         try {
@@ -100,7 +111,7 @@ const Cart = () => {
 
             alert("Order Placed Successfully 😎🔥");
 
-            // CLEAR LOCAL CART
+            // CLEAR CART
             setCartItems([]);
 
             // REDIRECT
@@ -116,17 +127,17 @@ const Cart = () => {
 
     };
 
-    // USE EFFECT
+    // RUN
     useEffect(() => {
 
         getCart();
 
     }, [user]);
 
-    // AFTER ALL HOOKS
-    if (loading) {
+    // USER LOADING
+    if (loading || pageLoading) {
 
-        return <h1 className="text-white">Loading...</h1>;
+        return <Loader />;
 
     }
 
@@ -213,7 +224,9 @@ const Cart = () => {
 
                                     {/* REMOVE BUTTON */}
                                     <button
-                                        onClick={() => removeItem(item.productId._id)}
+                                        onClick={() =>
+                                            removeItem(item.productId._id)
+                                        }
                                         className="mt-4 flex items-center gap-2 text-red-500"
                                     >
 
@@ -246,7 +259,9 @@ const Cart = () => {
                             type="text"
                             placeholder="Enter Shipping Address"
                             value={shippingAddress}
-                            onChange={(e) => setShippingAddress(e.target.value)}
+                            onChange={(e) =>
+                                setShippingAddress(e.target.value)
+                            }
                             className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-5 outline-none"
                         />
 
@@ -255,14 +270,18 @@ const Cart = () => {
                             type="text"
                             placeholder="Enter Phone Number"
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={(e) =>
+                                setPhone(e.target.value)
+                            }
                             className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-5 outline-none"
                         />
 
-                        {/* PAYMENT METHOD */}
+                        {/* PAYMENT */}
                         <select
                             value={paymentMethod}
-                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            onChange={(e) =>
+                                setPaymentMethod(e.target.value)
+                            }
                             className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-6 outline-none"
                         >
 

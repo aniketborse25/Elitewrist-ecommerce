@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "../Components/ProductCard";
+import Loader from "../Components/Loader";
 
 const Shop = () => {
 
+    // PRODUCTS
     const [products, setProducts] = useState([]);
+
+    // LOADING
+    const [loading, setLoading] = useState(true);
 
     // FETCH PRODUCTS
     const getProducts = async () => {
@@ -16,9 +21,6 @@ const Shop = () => {
             );
 
             setProducts(res.data.products);
-            console.log("Data:", res.data.products)
-            console.log("o id:", res.data.products[0]._id)
-
 
         }
 
@@ -27,8 +29,12 @@ const Shop = () => {
             console.log(error);
 
         }
-        console.log("o id:", res.data.products[0].id)
 
+        finally {
+
+            setLoading(false);
+
+        }
 
     };
 
@@ -39,13 +45,20 @@ const Shop = () => {
 
     }, []);
 
+    // LOADER
+    if (loading) {
+
+        return <Loader />;
+
+    }
+
     return (
 
         <div className="bg-black min-h-screen text-white px-6 py-16">
 
             <div className="max-w-7xl mx-auto">
 
-                {/* Heading */}
+                {/* HEADING */}
                 <div className="mb-16 text-center">
 
                     <p className="text-[#D4AF37] tracking-[8px] uppercase mb-4">
@@ -68,7 +81,7 @@ const Shop = () => {
 
                 </div>
 
-                {/* Products Grid */}
+                {/* PRODUCTS */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
                     {products.map((product) => (

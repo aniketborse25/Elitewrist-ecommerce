@@ -1,14 +1,19 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+
 import UserContext from "../Context/UserContext";
+import Loader from "../Components/Loader";
 
 const Orders = () => {
 
     // USER
     const { user } = useContext(UserContext);
 
-    // ORDERS STATE
+    // ORDERS
     const [orders, setOrders] = useState([]);
+
+    // LOADING
+    const [loading, setLoading] = useState(true);
 
     // FETCH ORDERS
     const fetchOrders = async () => {
@@ -20,7 +25,7 @@ const Orders = () => {
             );
 
             setOrders(res.data);
-            console.log("order api:", res);
+
         }
 
         catch (error) {
@@ -29,6 +34,11 @@ const Orders = () => {
 
         }
 
+        finally {
+
+            setLoading(false);
+
+        }
 
     };
 
@@ -42,6 +52,13 @@ const Orders = () => {
         }
 
     }, [user]);
+
+    // LOADER
+    if (loading) {
+
+        return <Loader />;
+
+    }
 
     return (
 
@@ -159,8 +176,6 @@ const Orders = () => {
                                                     alt={item.name}
                                                     className="w-24 h-24 object-cover rounded-2xl bg-[#111]"
                                                 />
-
-
 
                                                 {/* INFO */}
                                                 <div>

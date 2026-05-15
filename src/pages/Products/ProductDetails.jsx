@@ -1,18 +1,23 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import UserContext from "../../Context/UserContext";
+import Loader from "../../Components/Loader";
 
 const ProductDetails = () => {
 
-    const { id } = useParams();    // these will use for dynamic routing
+    const { id } = useParams();
 
     const navigate = useNavigate();
 
+    // USER CONTEXT
     const { user, loading } = useContext(UserContext);
 
+    // PRODUCT STATE
     const [product, setProduct] = useState(null);
 
+    // QUANTITY
     const [quantity, setQuantity] = useState(1);
 
     // FETCH PRODUCT
@@ -46,23 +51,27 @@ const ProductDetails = () => {
     }, [id]);
 
     // ADD TO CART
-
     const addToCart = async () => {
 
+        // USER LOADING
+        if (loading) {
+
+            alert("Please Wait...");
+
+            return;
+
+        }
+
         // NOT LOGIN
-        // if (!user) {
+        if (!user) {
 
-        //     navigate("/login");
+            navigate("/login");
 
-        //     return;
-        //     console.log("data pppppppppp::", user);
+            return;
 
-
-        // }
+        }
 
         try {
-
-            console.log("adddinnggg.......");
 
             const res = await axios.post(
                 "https://elitewrist-api.onrender.com/api/v1/user/cart/add",
@@ -73,10 +82,9 @@ const ProductDetails = () => {
                 }
             );
 
-            // console.log(res.data);
-            console.log("user id and product", res.data);
-            console.log("imggg", res.data.items[0].productId.image);
+            console.log(res.data);
 
+            alert("Added To Cart 😎🔥");
 
             navigate("/cart");
 
@@ -93,15 +101,7 @@ const ProductDetails = () => {
     // LOADING
     if (!product) {
 
-        return (
-
-            <div className="bg-black min-h-screen flex items-center justify-center text-white text-3xl">
-
-                Loading...
-
-            </div>
-
-        );
+        return <Loader />;
 
     }
 
@@ -149,7 +149,7 @@ const ProductDetails = () => {
 
                     </h2>
 
-                    {/* BUTTONS */}
+                    {/* BUTTON SECTION */}
                     <div className="flex items-center gap-6">
 
                         {/* QUANTITY */}

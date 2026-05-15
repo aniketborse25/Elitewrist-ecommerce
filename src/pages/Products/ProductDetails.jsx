@@ -62,6 +62,8 @@ const ProductDetails = () => {
 
         try {
 
+            console.log("adddinnggg.......");
+
             const res = await axios.post(
                 "https://elitewrist-api.onrender.com/api/v1/user/cart/add",
                 {

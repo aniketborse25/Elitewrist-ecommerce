@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+
 import UserContextProvider from "./Context/UserContextProvider";
 
 // Components
@@ -14,15 +17,24 @@ import Register from "./pages/User/Register";
 import Profile from "./pages/User/Profile";
 
 // Product Pages
-
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
 import Orders from "./pages/Orders";
 
-
 function App() {
+
+  // WAKE BACKEND
+  useEffect(() => {                                             // As soon as website open frontend wakes backend first
+
+    axios.get(
+      "https://elitewrist-api.onrender.com"
+    );
+
+  }, []);
+
   return (
+
     <UserContextProvider>
 
       <Navbar />
@@ -32,33 +44,54 @@ function App() {
         {/* Home */}
         <Route path="/" element={<Home />} />
 
+        {/* Product Details */}
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
 
-
-        {/* Dynamic Product Details */}
-        <Route path="/product/:id"
-          element={<ProductDetails />} />
-        {/* <Route path="/add-product" element={<AddProduct />} /> */}
-        {/* <Route
-          path="/edit-product/:id"
-          element={<EditProduct />}
-        /> */}
-        <Route path="/orders" element={<Orders />} />
+        {/* Orders */}
+        <Route
+          path="/orders"
+          element={<Orders />}
+        />
 
         {/* User */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
+
+        {/* Cart */}
+        <Route
+          path="/cart"
+          element={<Cart />}
+        />
+
+        {/* Shop */}
+        <Route
+          path="/shop"
+          element={<Shop />}
+        />
 
       </Routes>
 
       <Footer />
 
     </UserContextProvider>
+
   );
+
 }
 
 export default App;

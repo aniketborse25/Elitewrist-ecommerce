@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import UserContext from "../Context/UserContext";
 
 const Orders = () => {
+
+    // USER
+    const { user } = useContext(UserContext);
 
     // ORDERS STATE
     const [orders, setOrders] = useState([]);
@@ -12,11 +16,11 @@ const Orders = () => {
         try {
 
             const res = await axios.get(
-                "http://localhost:3000/orders"
+                `https://elitewrist-api.onrender.com/api/v1/user/order/${user.id}`
             );
 
             setOrders(res.data);
-
+            console.log("order api:", res);
         }
 
         catch (error) {
@@ -25,32 +29,67 @@ const Orders = () => {
 
         }
 
+
     };
 
     // RUN
     useEffect(() => {
 
-        fetchOrders();
+        if (user) {
 
-    }, []);
+            fetchOrders();
+
+        }
+
+    }, [user]);
 
     return (
 
-        <div className="bg-black min-h-screen text-white px-6 py-16">
+        <div className="bg-black min-h-screen text-white px-6 py-14">
 
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-5xl mx-auto">
 
-                {/* TITLE */}
-                <h1 className="text-5xl font-bold mb-12">
+                {/* TOP */}
+                <div className="flex items-center justify-between mb-12">
 
-                    My Orders
+                    <div>
 
-                </h1>
+                        <h1 className="text-5xl font-bold mb-2">
+
+                            My Orders
+
+                        </h1>
+
+                        <p className="text-gray-400">
+
+                            Track all your purchases
+
+                        </p>
+
+                    </div>
+
+                    <div className="bg-[#111] border border-gray-800 rounded-2xl px-6 py-4">
+
+                        <h2 className="text-[#D4AF37] text-3xl font-bold">
+
+                            {orders.length}
+
+                        </h2>
+
+                        <p className="text-gray-400 text-sm">
+
+                            Orders
+
+                        </p>
+
+                    </div>
+
+                </div>
 
                 {/* EMPTY */}
                 {orders.length === 0 ? (
 
-                    <div className="text-center text-gray-400 text-2xl mt-32">
+                    <div className="text-center text-2xl text-gray-500 mt-32">
 
                         No Orders Yet
 
@@ -63,41 +102,39 @@ const Orders = () => {
                         {orders.map((order) => (
 
                             <div
-                                key={order.id}
+                                key={order._id}
                                 className="bg-[#111] border border-gray-800 rounded-3xl p-8"
                             >
 
                                 {/* TOP */}
-                                <div className="flex justify-between items-start mb-8">
+                                <div className="flex items-center justify-between mb-8">
 
                                     <div>
 
-                                        <p className="text-gray-500 text-sm mb-2">
+                                        <p className="text-gray-500 text-sm uppercase tracking-[3px] mb-3">
 
-                                            ORDER DETAILS
+                                            Order Details
 
                                         </p>
 
-                                        {/* ORDER ID */}
-                                        <h2 className="text-lg font-semibold text-gray-300 mb-1">
+                                        <h2 className="text-2xl font-bold mb-2">
 
-                                            Order #{order.id}
+                                            #{order._id.slice(-6)}
 
                                         </h2>
 
-                                        {/* DATE */}
-                                        <p className="text-gray-500 text-sm">
+                                        <p className="text-gray-400">
 
-                                            Ordered on {order.date}
+                                            {new Date(order.createdAt).toLocaleDateString()}
 
                                         </p>
 
                                     </div>
 
                                     {/* STATUS */}
-                                    <div className="bg-green-500/10 text-green-400 border border-green-500 px-4 py-2 rounded-full text-sm font-semibold">
+                                    <div className="bg-[#D4AF37] text-black px-5 py-2 rounded-full font-bold">
 
-                                        Confirmed
+                                        {order.orderStatus}
 
                                     </div>
 
@@ -106,39 +143,52 @@ const Orders = () => {
                                 {/* PRODUCTS */}
                                 <div className="space-y-5">
 
-                                    {order.items.map((item) => (
+                                    {order.items.map((item, index) => (
 
                                         <div
-                                            key={item.id}
-                                            className="flex items-center gap-5 border-b border-gray-800 pb-5"
+                                            key={index}
+                                            className="flex items-center justify-between bg-black border border-gray-800 rounded-2xl p-5"
                                         >
 
-                                            {/* IMAGE */}
-                                            <img
-                                                src={item.image}
-                                                alt={item.name}
-                                                className="w-32 h-32 object-contain bg-black rounded-2xl"
-                                            />
+                                            {/* LEFT */}
+                                            <div className="flex items-center gap-5">
 
-                                            {/* INFO */}
-                                            <div className="flex-1">
+                                                {/* IMAGE */}
+                                                <img
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                    className="w-24 h-24 object-cover rounded-2xl bg-[#111]"
+                                                />
 
-                                                <h3 className="text-2xl font-bold mb-2">
 
-                                                    {item.name}
 
-                                                </h3>
+                                                {/* INFO */}
+                                                <div>
 
-                                                <p className="text-gray-400">
+                                                    <h3 className="text-2xl font-bold mb-2">
 
-                                                    Quantity: {item.quantity}
+                                                        {item.name}
 
-                                                </p>
+                                                    </h3>
+
+                                                    <p className="text-gray-400">
+
+                                                        Quantity: {item.quantity}
+
+                                                    </p>
+
+                                                    <p className="text-gray-500 mt-1">
+
+                                                        ₹{item.price}
+
+                                                    </p>
+
+                                                </div>
 
                                             </div>
 
-                                            {/* PRICE */}
-                                            <h2 className="text-[#D4AF37] text-2xl font-bold">
+                                            {/* RIGHT */}
+                                            <h2 className="text-[#D4AF37] text-3xl font-bold">
 
                                                 ₹{item.price * item.quantity}
 
@@ -150,20 +200,42 @@ const Orders = () => {
 
                                 </div>
 
-                                {/* TOTAL */}
-                                <div className="flex justify-between items-center mt-8">
+                                {/* BOTTOM */}
+                                <div className="border-t border-gray-800 mt-8 pt-8 flex items-end justify-between">
 
-                                    <h2 className="text-2xl font-bold">
+                                    {/* ADDRESS */}
+                                    <div>
 
-                                        Total
+                                        <p className="text-gray-500 mb-2">
 
-                                    </h2>
+                                            Shipping Address
 
-                                    <h2 className="text-4xl font-bold text-[#D4AF37]">
+                                        </p>
 
-                                        ₹{order.total}
+                                        <h2 className="text-xl font-semibold">
 
-                                    </h2>
+                                            {order.shippingAddress}
+
+                                        </h2>
+
+                                    </div>
+
+                                    {/* TOTAL */}
+                                    <div className="text-right">
+
+                                        <p className="text-gray-500 mb-2">
+
+                                            Total Amount
+
+                                        </p>
+
+                                        <h2 className="text-5xl font-bold text-[#D4AF37]">
+
+                                            ₹{order.totalAmount}
+
+                                        </h2>
+
+                                    </div>
 
                                 </div>
 

@@ -5,7 +5,7 @@ import UserContext from "../../Context/UserContext";
 
 const ProductDetails = () => {
 
-    const { id } = useParams();
+    const { id } = useParams();    // these will use for dynamic routing
 
     const navigate = useNavigate();
 
@@ -17,6 +17,9 @@ const ProductDetails = () => {
 
     // FETCH PRODUCT
     useEffect(() => {
+
+        // SCROLL TOP
+        window.scrollTo(0, 0);
 
         const fetchProduct = async () => {
 
@@ -43,6 +46,7 @@ const ProductDetails = () => {
     }, [id]);
 
     // ADD TO CART
+
     const addToCart = async () => {
 
         // NOT LOGIN
@@ -65,7 +69,10 @@ const ProductDetails = () => {
                 }
             );
 
-            console.log(res.data);
+            // console.log(res.data);
+            console.log("user id and product", res.data);
+            console.log("imggg", res.data.items[0].productId.image);
+
 
             navigate("/cart");
 

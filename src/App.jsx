@@ -18,10 +18,8 @@ import Profile from "./pages/User/Profile";
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
-// import AddProduct from "./pages/Products/AddProduct";
-// import EditProduct from "./pages/Products/EditProducts";
 import Orders from "./pages/Orders";
-import Checkout from "./pages/Chekout";
+
 
 function App() {
   return (
@@ -45,7 +43,6 @@ function App() {
           element={<EditProduct />}
         /> */}
         <Route path="/orders" element={<Orders />} />
-        <Route path="/checkout" element={<Checkout />} />
 
         {/* User */}
         <Route path="/login" element={<Login />} />

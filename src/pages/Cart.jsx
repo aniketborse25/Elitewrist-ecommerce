@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 import axios from "axios";
 import UserContext from "../Context/UserContext";
 
@@ -14,23 +15,23 @@ const Cart = () => {
     // CART STATE
     const [cartItems, setCartItems] = useState([]);
 
-    // PROTECT PAGE
-    if (loading) {
-        return <h1>Loading...</h1>;
-    }
+    // CHECKOUT STATES
+    const [shippingAddress, setShippingAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("COD");
 
-    if (!user) {
-        return <Navigate to="/login" />;
-    }
     // FETCH CART
     const getCart = async () => {
+
+        // NO USER
+        if (!user) return;
 
         try {
 
             const res = await axios.get(
                 `https://elitewrist-api.onrender.com/api/v1/user/cart/${user.id}`
             );
-            console.log(res.data);
+
             setCartItems(res.data.items);
 
         }
@@ -43,12 +44,98 @@ const Cart = () => {
 
     };
 
-    // RUN ONCE
+    // REMOVE PRODUCT
+    const removeItem = async (productId) => {
+
+        try {
+
+            await axios.delete(
+                "https://elitewrist-api.onrender.com/api/v1/user/cart/remove",
+                {
+                    data: {
+                        userId: user.id,
+                        productId,
+                    },
+                }
+            );
+
+            // REFRESH CART
+            getCart();
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+    // CHECKOUT
+    const handleCheckout = async () => {
+
+        // VALIDATION
+        if (!shippingAddress || !phone) {
+
+            alert("Please Fill All Details");
+
+            return;
+
+        }
+
+        try {
+
+            const res = await axios.post(
+                "https://elitewrist-api.onrender.com/api/v1/user/order/checkout",
+                {
+                    userId: user.id,
+                    shippingAddress,
+                    phone,
+                    paymentMethod,
+                }
+            );
+
+            console.log(res.data);
+
+            alert("Order Placed Successfully 😎🔥");
+
+            // CLEAR LOCAL CART
+            setCartItems([]);
+
+            // REDIRECT
+            navigate("/orders");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+    // USE EFFECT
     useEffect(() => {
 
         getCart();
 
-    }, []);
+    }, [user]);
+
+    // AFTER ALL HOOKS
+    if (loading) {
+
+        return <h1 className="text-white">Loading...</h1>;
+
+    }
+
+    // PROTECTED ROUTE
+    if (!user) {
+
+        return <Navigate to="/login" />;
+
+    }
 
     // TOTAL
     let total = 0;
@@ -83,7 +170,7 @@ const Cart = () => {
 
                 <div className="grid lg:grid-cols-3 gap-10">
 
-                    {/* LEFT */}
+                    {/* LEFT SIDE */}
                     <div className="lg:col-span-2 space-y-5">
 
                         {cartItems.map((item) => (
@@ -124,6 +211,18 @@ const Cart = () => {
 
                                     </p>
 
+                                    {/* REMOVE BUTTON */}
+                                    <button
+                                        onClick={() => removeItem(item.productId._id)}
+                                        className="mt-4 flex items-center gap-2 text-red-500"
+                                    >
+
+                                        <Trash2 size={18} />
+
+                                        Remove
+
+                                    </button>
+
                                 </div>
 
                             </div>
@@ -132,14 +231,60 @@ const Cart = () => {
 
                     </div>
 
-                    {/* RIGHT */}
+                    {/* RIGHT SIDE */}
                     <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 h-fit">
 
+                        {/* TITLE */}
                         <h2 className="text-3xl font-bold mb-8">
 
-                            Order Summary
+                            Checkout
 
                         </h2>
+
+                        {/* ADDRESS */}
+                        <input
+                            type="text"
+                            placeholder="Enter Shipping Address"
+                            value={shippingAddress}
+                            onChange={(e) => setShippingAddress(e.target.value)}
+                            className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-5 outline-none"
+                        />
+
+                        {/* PHONE */}
+                        <input
+                            type="text"
+                            placeholder="Enter Phone Number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-5 outline-none"
+                        />
+
+                        {/* PAYMENT METHOD */}
+                        <select
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            className="w-full bg-black border border-gray-700 rounded-2xl px-4 py-3 mb-6 outline-none"
+                        >
+
+                            <option value="COD">
+
+                                Cash On Delivery
+
+                            </option>
+
+                            <option value="UPI">
+
+                                UPI
+
+                            </option>
+
+                            <option value="CARD">
+
+                                Credit / Debit Card
+
+                            </option>
+
+                        </select>
 
                         {/* TOTAL */}
                         <div className="flex justify-between text-xl mb-6">
@@ -154,13 +299,13 @@ const Cart = () => {
 
                         </div>
 
-                        {/* CHECKOUT */}
+                        {/* CHECKOUT BUTTON */}
                         <button
-                            onClick={() => navigate("/checkout")}
+                            onClick={handleCheckout}
                             className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold"
                         >
 
-                            Checkout
+                            Place Order
 
                         </button>
 

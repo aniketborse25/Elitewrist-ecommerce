@@ -47,11 +47,14 @@ const Footer = () => {
               Home
             </Link>
 
+
             <Link
-              to="/shop"
+              to="/collection"
               className="hover:text-[#D4AF37] duration-300"
             >
-              Shop
+
+              Collection
+
             </Link>
 
             <Link
@@ -87,6 +90,8 @@ const Footer = () => {
 
             <p>Phone: +91 98765 43210</p>
 
+            <p> Mumbai, India </p>
+
           </div>
 
         </div>
@@ -96,7 +101,7 @@ const Footer = () => {
       {/* BOTTOM */}
       <div className="border-t border-gray-800 text-center py-5 text-gray-500 text-sm">
 
-        © 2026 EliteWrist. All Rights Reserved.
+        © 2026 EliteWrist — Crafted For Timeless Luxury
 
       </div>
 

@@ -43,39 +43,45 @@ const Profile = () => {
 
     return (
 
-        <div className="min-h-[80vh] bg-black text-white flex items-center justify-center px-6 py-10">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-16">
 
             {/* CARD */}
-            <div className="w-full max-w-sm bg-[#0f0f0f] border border-[#1f1f1f] rounded-[30px] p-7 hover:border-[#D4AF37] duration-500">
+            <div className="w-full max-w-sm bg-[#111] border border-[#222] rounded-[35px] p-8 hover:border-[#D4AF37] duration-500">
 
-                {/* AVATAR */}
-                <div className="flex justify-center mb-6">
+                {/* TOP */}
+                <div className="text-center mb-8">
 
-                    <div className="w-20 h-20 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-3xl font-bold">
+                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-xs mb-4">
+
+                        Elite Profile
+
+                    </p>
+
+                    {/* AVATAR */}
+                    <div className="w-24 h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-4xl font-bold mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
 
                         {user.name.charAt(0).toUpperCase()}
 
                     </div>
 
-                </div>
-
-                {/* INFO */}
-                <div className="text-center">
-
-                    <h1 className="text-2xl font-bold mb-2">
+                    {/* NAME */}
+                    <h1 className="text-3xl font-bold mb-3">
 
                         {user.name}
 
                     </h1>
 
-                    <p className="text-gray-500 text-sm break-all">
+                    {/* EMAIL */}
+                    <p className="text-gray-500 text-sm break-all leading-7">
 
                         {user.email}
 
                     </p>
 
-                    <div className="w-12 h-[2px] bg-[#D4AF37] mx-auto my-5 rounded-full"></div>
+                    {/* LINE */}
+                    <div className="w-14 h-[2px] bg-[#D4AF37] mx-auto my-6 rounded-full"></div>
 
+                    {/* MEMBER */}
                     <p className="text-[#D4AF37] uppercase tracking-[4px] text-[11px]">
 
                         EliteWrist Member
@@ -85,29 +91,32 @@ const Profile = () => {
                 </div>
 
                 {/* BUTTONS */}
-                <div className="mt-8 space-y-3">
+                <div className="space-y-4">
 
+                    {/* ORDERS */}
                     <button
                         onClick={() => navigate("/orders")}
-                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold"
+                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
                     >
 
                         My Orders
 
                     </button>
 
+                    {/* HOME */}
                     <button
                         onClick={() => navigate("/")}
-                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl"
+                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
                     >
 
                         Back To Home
 
                     </button>
 
+                    {/* LOGOUT */}
                     <button
                         onClick={handleLogout}
-                        className="w-full border border-red-500 text-red-400 py-3 rounded-2xl"
+                        className="w-full border border-red-500 text-red-400 py-3 rounded-2xl hover:bg-red-500 hover:text-white duration-300"
                     >
 
                         Logout

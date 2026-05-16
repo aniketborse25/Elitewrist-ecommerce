@@ -1,8 +1,11 @@
 import { useEffect, useState, useContext } from "react";
+
 import { Navigate } from "react-router-dom";
+
 import axios from "axios";
 
 import UserContext from "../Context/UserContext";
+
 import Loader from "../Components/Loader";
 
 const Orders = () => {
@@ -79,38 +82,45 @@ const Orders = () => {
 
         <div className="bg-black min-h-screen text-white px-6 py-14">
 
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl mx-auto">
 
                 {/* TOP */}
-                <div className="flex items-center justify-between mb-12">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-14">
 
                     <div>
 
-                        <h1 className="text-5xl font-bold mb-2">
+                        <p className="text-[#D4AF37] uppercase tracking-[6px] text-sm mb-4">
+
+                            Elite Orders
+
+                        </p>
+
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">
 
                             My Orders
 
                         </h1>
 
-                        <p className="text-gray-400">
+                        <p className="text-gray-500">
 
-                            Track all your purchases
+                            Track your premium purchases and luxury collection.
 
                         </p>
 
                     </div>
 
-                    <div className="bg-[#111] border border-gray-800 rounded-2xl px-6 py-4">
+                    {/* TOTAL */}
+                    <div className="bg-[#111] border border-[#222] rounded-[25px] px-8 py-5 text-center">
 
-                        <h2 className="text-[#D4AF37] text-3xl font-bold">
+                        <h2 className="text-[#D4AF37] text-4xl font-bold mb-1">
 
                             {orders.length}
 
                         </h2>
 
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-500 text-sm">
 
-                            Orders
+                            Total Orders
 
                         </p>
 
@@ -121,9 +131,19 @@ const Orders = () => {
                 {/* EMPTY */}
                 {orders.length === 0 ? (
 
-                    <div className="text-center text-2xl text-gray-500 mt-32">
+                    <div className="text-center py-32">
 
-                        No Orders Yet
+                        <h2 className="text-3xl font-bold mb-5">
+
+                            No Orders Yet
+
+                        </h2>
+
+                        <p className="text-gray-500">
+
+                            Your premium orders will appear here.
+
+                        </p>
 
                     </div>
 
@@ -135,15 +155,15 @@ const Orders = () => {
 
                             <div
                                 key={order._id}
-                                className="bg-[#111] border border-gray-800 rounded-3xl p-8"
+                                className="bg-[#111] border border-[#222] rounded-[35px] p-6 md:p-8 hover:border-[#D4AF37] duration-300"
                             >
 
                                 {/* TOP */}
-                                <div className="flex items-center justify-between mb-8">
+                                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
 
                                     <div>
 
-                                        <p className="text-gray-500 text-sm uppercase tracking-[3px] mb-3">
+                                        <p className="text-gray-500 text-xs uppercase tracking-[4px] mb-3">
 
                                             Order Details
 
@@ -155,7 +175,7 @@ const Orders = () => {
 
                                         </h2>
 
-                                        <p className="text-gray-400">
+                                        <p className="text-gray-500 text-sm">
 
                                             {new Date(order.createdAt).toLocaleDateString()}
 
@@ -164,7 +184,7 @@ const Orders = () => {
                                     </div>
 
                                     {/* STATUS */}
-                                    <div className="bg-[#D4AF37] text-black px-5 py-2 rounded-full font-bold">
+                                    <div className="bg-[#D4AF37] text-black px-5 py-2 rounded-full font-bold text-sm w-fit">
 
                                         {order.orderStatus}
 
@@ -179,35 +199,39 @@ const Orders = () => {
 
                                         <div
                                             key={index}
-                                            className="flex items-center justify-between bg-black border border-gray-800 rounded-2xl p-5"
+                                            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 bg-black border border-[#222] rounded-[25px] p-5"
                                         >
 
                                             {/* LEFT */}
                                             <div className="flex items-center gap-5">
 
                                                 {/* IMAGE */}
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.name}
-                                                    className="w-24 h-24 object-cover rounded-2xl bg-[#111]"
-                                                />
+                                                <div className="bg-[#111] rounded-[20px] p-3">
+
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        className="w-24 h-24 object-cover rounded-xl"
+                                                    />
+
+                                                </div>
 
                                                 {/* INFO */}
                                                 <div>
 
-                                                    <h3 className="text-2xl font-bold mb-2">
+                                                    <h3 className="text-xl md:text-2xl font-bold mb-2">
 
                                                         {item.name}
 
                                                     </h3>
 
-                                                    <p className="text-gray-400">
+                                                    <p className="text-gray-400 text-sm mb-1">
 
-                                                        Quantity: {item.quantity}
+                                                        Quantity : {item.quantity}
 
                                                     </p>
 
-                                                    <p className="text-gray-500 mt-1">
+                                                    <p className="text-gray-500 text-sm">
 
                                                         ₹{item.price}
 
@@ -218,7 +242,7 @@ const Orders = () => {
                                             </div>
 
                                             {/* RIGHT */}
-                                            <h2 className="text-[#D4AF37] text-3xl font-bold">
+                                            <h2 className="text-[#D4AF37] text-2xl md:text-3xl font-bold">
 
                                                 ₹{item.price * item.quantity}
 
@@ -231,18 +255,18 @@ const Orders = () => {
                                 </div>
 
                                 {/* BOTTOM */}
-                                <div className="border-t border-gray-800 mt-8 pt-8 flex items-end justify-between">
+                                <div className="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
 
                                     {/* ADDRESS */}
                                     <div>
 
-                                        <p className="text-gray-500 mb-2">
+                                        <p className="text-gray-500 text-sm mb-3">
 
                                             Shipping Address
 
                                         </p>
 
-                                        <h2 className="text-xl font-semibold">
+                                        <h2 className="text-lg font-semibold leading-8">
 
                                             {order.shippingAddress}
 
@@ -251,15 +275,15 @@ const Orders = () => {
                                     </div>
 
                                     {/* TOTAL */}
-                                    <div className="text-right">
+                                    <div className="md:text-right">
 
-                                        <p className="text-gray-500 mb-2">
+                                        <p className="text-gray-500 text-sm mb-3">
 
                                             Total Amount
 
                                         </p>
 
-                                        <h2 className="text-5xl font-bold text-[#D4AF37]">
+                                        <h2 className="text-4xl font-bold text-[#D4AF37]">
 
                                             ₹{order.totalAmount}
 

@@ -2,19 +2,29 @@ const Loader = () => {
 
     return (
 
-        <div className="bg-black min-h-screen flex flex-col items-center justify-center">
+        <div className="bg-black min-h-screen flex flex-col items-center justify-center px-6">
+
+            {/* GLOW */}
+            <div className="absolute w-[250px] h-[250px] bg-[#D4AF37]/10 blur-[120px] rounded-full"></div>
 
             {/* SPINNER */}
-            <div className="w-20 h-20 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin mb-8"></div>
+            <div className="relative w-20 h-20 border-[3px] border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin mb-8"></div>
 
-            {/* TEXT */}
-            <h1 className="text-white text-3xl font-bold tracking-[4px]">
+            {/* LOGO */}
+            <h1 className="relative text-white text-4xl md:text-5xl font-bold tracking-[6px]">
 
-                ELITEWRIST
+                <span className="text-[#D4AF37]">
+
+                    ELITE
+
+                </span>
+
+                WRIST
 
             </h1>
 
-            <p className="text-gray-400 mt-4 text-lg">
+            {/* TEXT */}
+            <p className="relative text-gray-500 mt-5 text-sm md:text-base tracking-[3px] uppercase text-center">
 
                 Loading Luxury Experience...
 

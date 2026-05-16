@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
     ShoppingCart,
     Search,
-    UserCircle2
+    UserCircle2,
+    X
 } from "lucide-react";
 
 import { useEffect, useState, useContext } from "react";
@@ -13,18 +15,24 @@ import UserContext from "../Context/UserContext";
 
 const Navbar = () => {
 
+    const navigate = useNavigate();
+
     // USER CONTEXT
     const { user } = useContext(UserContext);
 
     // CART COUNT
     const [cartCount, setCartCount] = useState(0);
 
+    // SEARCH
+    const [showSearch, setShowSearch] = useState(false);
+
+    const [search, setSearch] = useState("");
+
     // FETCH CART
     useEffect(() => {
 
         const getCart = async () => {
 
-            // NO USER
             if (!user) {
 
                 setCartCount(0);
@@ -39,7 +47,6 @@ const Navbar = () => {
                     `https://elitewrist-api.onrender.com/api/v1/user/cart/${user.id}`
                 );
 
-                // TOTAL QUANTITY
                 const totalQuantity = (res.data.items || []).reduce(
                     (acc, item) => acc + item.quantity,
                     0
@@ -60,6 +67,26 @@ const Navbar = () => {
         getCart();
 
     }, [user]);
+
+    // SEARCH PRODUCT
+    const handleSearch = (e) => {
+
+        e.preventDefault();
+
+        // EMPTY
+        if (!search.trim()) {
+
+            return;
+
+        }
+
+        // REDIRECT
+        navigate(`/collection?search=${search}`);
+
+        // CLOSE SEARCH
+        setShowSearch(false);
+
+    };
 
     return (
 
@@ -97,11 +124,20 @@ const Navbar = () => {
                     </Link>
 
                     <Link
-                        to="/shop"
+                        to="/collection"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
 
-                        Shop
+                        Collection
+
+                    </Link>
+
+                    <Link
+                        to="/brand"
+                        className="hover:text-[#D4AF37] transition duration-300"
+                    >
+
+                        Brand
 
                     </Link>
 
@@ -110,10 +146,23 @@ const Navbar = () => {
                 {/* RIGHT SIDE */}
                 <div className="flex items-center gap-5">
 
-                    {/* SEARCH */}
-                    <button className="hover:text-[#D4AF37] transition duration-300">
+                    {/* SEARCH ICON */}
+                    <button
+                        onClick={() =>
+                            setShowSearch(!showSearch)
+                        }
+                        className="hover:text-[#D4AF37] transition duration-300"
+                    >
 
-                        <Search size={22} />
+                        {showSearch ? (
+
+                            <X size={22} />
+
+                        ) : (
+
+                            <Search size={22} />
+
+                        )}
 
                     </button>
 
@@ -125,7 +174,7 @@ const Navbar = () => {
 
                         <ShoppingCart size={22} />
 
-                        {/* SHOW COUNT ONLY IF LOGIN */}
+                        {/* COUNT */}
                         {user && cartCount > 0 && (
 
                             <span className="absolute -top-2 -right-2 bg-[#D4AF37] text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
@@ -144,7 +193,6 @@ const Navbar = () => {
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
 
-                        {/* USER LOGIN */}
                         {user ? (
 
                             <div className="w-9 h-9 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-bold text-sm">
@@ -164,6 +212,41 @@ const Navbar = () => {
                 </div>
 
             </div>
+
+            {/* SEARCH BAR */}
+            {showSearch && (
+
+                <div className="border-t border-gray-800 px-6 py-5 bg-black">
+
+                    <form
+                        onSubmit={handleSearch}
+                        className="max-w-3xl mx-auto flex gap-4"
+                    >
+
+                        <input
+                            type="text"
+                            placeholder="Search luxury watches..."
+                            value={search}
+                            onChange={(e) =>
+                                setSearch(e.target.value)
+                            }
+                            className="flex-1 bg-[#111] border border-[#333] rounded-2xl px-6 py-4 outline-none focus:border-[#D4AF37]"
+                        />
+
+                        <button
+                            type="submit"
+                            className="bg-[#D4AF37] text-black px-8 rounded-2xl font-semibold hover:scale-105 duration-300"
+                        >
+
+                            Search
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            )}
 
         </nav>
 

@@ -1,40 +1,72 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
 
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-[#111] rounded-2xl overflow-hidden border border-gray-800 hover:border-yellow-500 transition duration-300">
 
-      {/* Product Image */}
-      <img
-        src={product.image}
-        alt={product.name}
-        className="w-full h-[300px] object-cover"
-      />
+    <div className="bg-[#111] border border-[#222] rounded-[30px] overflow-hidden hover:border-[#D4AF37] duration-300 group">
 
-      {/* Product Info */}
-      <div className="p-5">
+      {/* IMAGE */}
+      <div
+        onClick={() => navigate(`/product/${product._id}`)}
+        className="cursor-pointer overflow-hidden bg-black"
+      >
 
-        <h2 className="text-white text-xl font-semibold mb-2">
-          {product.name}
-        </h2>
-
-        <p className="text-yellow-500 text-lg font-bold mb-4">
-          ₹{product.price}
-        </p>
-
-        {/* IMPORTANT */}
-        <Link to={`/product/${product._id}`}>
-
-          <button className="w-full bg-yellow-500 text-black py-2 rounded-lg font-semibold">
-            View Details
-          </button>
-
-        </Link>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-[320px] object-cover group-hover:scale-105 duration-500"
+        />
 
       </div>
+
+      {/* CONTENT */}
+      <div className="p-6">
+
+        {/* NAME */}
+        <h2 className="text-2xl font-bold mb-3 text-white">
+
+          {product.name}
+
+        </h2>
+
+        {/* DESCRIPTION */}
+        <p className="text-gray-500 text-sm leading-7 mb-5">
+
+          {product.description?.slice(0, 80)}...
+
+        </p>
+
+        {/* PRICE + BUTTON */}
+        <div className="flex items-center justify-between">
+
+          {/* PRICE */}
+          <h3 className="text-[#D4AF37] text-2xl font-bold">
+
+            ₹{product.price}
+
+          </h3>
+
+          {/* BUTTON */}
+          <Link
+            to={`/product/${product._id}`}
+            className="bg-[#D4AF37] text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 duration-300"
+          >
+
+            View Details
+
+          </Link>
+
+        </div>
+
+      </div>
+
     </div>
+
   );
+
 };
 
 export default ProductCard;

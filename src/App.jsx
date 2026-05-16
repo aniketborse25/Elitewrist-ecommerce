@@ -19,8 +19,9 @@ import Profile from "./pages/User/Profile";
 // Product Pages
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
-import Shop from "./pages/Shop";
 import Orders from "./pages/Orders";
+import Collection from "./Pages/Collection";
+import Brand from "./pages/Brand";
 
 function App() {
 
@@ -78,11 +79,16 @@ function App() {
           element={<Cart />}
         />
 
-        {/* Shop */}
+        {/* collection */}
+        <Route path="/collection"
+          element={<Collection />} />
+
+        {/* BRAND */}
         <Route
-          path="/shop"
-          element={<Shop />}
+          path="/brand"
+          element={<Brand />}
         />
+
 
       </Routes>
 

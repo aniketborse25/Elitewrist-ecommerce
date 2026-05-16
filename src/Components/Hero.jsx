@@ -26,16 +26,19 @@ const Hero = () => {
                     <div className="flex gap-4">
 
                         <Link
-                            to="/shop"
+                            to="/collection"
                             className="bg-[#D4AF37] text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition duration-300"
                         >
-                            Shop Now
+                            Explore Collection
                         </Link>
+                        <Link
+                            to="/brand"
+                            className="border border-gray-600 px-8 py-3 rounded-lg hover:border-[#D4AF37] hover:text-[#D4AF37] transition duration-300"
+                        >
 
-                        <button className="border border-gray-600 px-8 py-3 rounded-lg hover:border-[#D4AF37] hover:text-[#D4AF37] transition duration-300">
-                            Explore More
-                        </button>
+                            Discover Brand
 
+                        </Link>
                     </div>
                 </div>
 

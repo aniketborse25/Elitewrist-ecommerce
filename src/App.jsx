@@ -20,7 +20,7 @@ import Profile from "./pages/User/Profile";
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
-import Collection from "./Pages/Collection";
+import Collection from "./pages/Collection";
 import Brand from "./pages/Brand";
 
 function App() {

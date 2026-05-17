@@ -22,7 +22,7 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Collection from "./pages/Collection";
 import Brand from "./pages/Brand";
-
+import Success from "./pages/Success";
 function App() {
 
   // WAKE BACKEND
@@ -88,7 +88,10 @@ function App() {
           path="/brand"
           element={<Brand />}
         />
-
+        <Route
+          path="/success"
+          element={<Success />}
+        />
 
       </Routes>
 

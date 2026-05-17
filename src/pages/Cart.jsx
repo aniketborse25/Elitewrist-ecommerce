@@ -10,6 +10,13 @@ import UserContext from "../Context/UserContext";
 
 import Loader from "../Components/Loader";
 
+import { loadStripe } from "@stripe/stripe-js";
+
+// STRIPE
+const stripePromise = loadStripe(
+    "pk_test_51TXvhfIx1MnQ4FgPsdquWHCuc9bs6ATrd6PPdD481RJvYlyCQXKcusrejQQzwuKM0E2JiVtjyWmzgShFfggGagVf00Pzfm45vr"
+);
+
 const Cart = () => {
 
     // USER
@@ -29,7 +36,7 @@ const Cart = () => {
 
     const [phone, setPhone] = useState("");
 
-    const [paymentMethod, setPaymentMethod] = useState("COD");
+    const [paymentMethod, setPaymentMethod] = useState("CARD");
 
     // FETCH CART
     const getCart = async () => {
@@ -74,7 +81,6 @@ const Cart = () => {
                 }
             );
 
-            // REFRESH CART
             getCart();
 
         }
@@ -102,7 +108,6 @@ const Cart = () => {
                 }
             );
 
-            // REFRESH CART
             getCart();
 
         }
@@ -114,11 +119,10 @@ const Cart = () => {
         }
 
     };
+    // STRIPE PAYMENT
+    const handleStripePayment = async () => {
 
-    // CHECKOUT
-    const handleCheckout = async () => {
-
-        // EMPTY VALIDATION
+        // VALIDATION
         if (!shippingAddress || !phone) {
 
             alert("Please Fill All Details");
@@ -136,34 +140,20 @@ const Cart = () => {
 
         }
 
-        // ADDRESS VALIDATION
-        if (shippingAddress.length < 15) {
-
-            alert("Enter Full Shipping Address");
-
-            return;
-
-        }
-
         try {
 
-            await axios.post(
-                "https://elitewrist-api.onrender.com/api/v1/user/order/checkout",
+            const response = await axios.post(
+
+                "https://elitewrist-api.onrender.com/api/v1/payment/create-checkout-session",
+
                 {
-                    userId: user.id,
-                    shippingAddress,
-                    phone,
-                    paymentMethod,
+                    products: cartItems,
                 }
+
             );
 
-            alert("Order Placed Successfully 😎🔥");
-
-            // CLEAR CART
-            setCartItems([]);
-
-            // REDIRECT
-            navigate("/orders");
+            // REDIRECT TO STRIPE
+            window.location.href = response.data.url;
 
         }
 
@@ -300,10 +290,9 @@ const Cart = () => {
 
                                         </h2>
 
-                                        {/* QUANTITY CONTROLS */}
+                                        {/* QUANTITY */}
                                         <div className="flex items-center gap-4 mb-4">
 
-                                            {/* DECREASE */}
                                             <button
                                                 onClick={() =>
                                                     updateQuantity(item.productId._id, "decrease")
@@ -315,14 +304,12 @@ const Cart = () => {
 
                                             </button>
 
-                                            {/* QUANTITY */}
                                             <span className="text-lg font-semibold">
 
                                                 {item.quantity}
 
                                             </span>
 
-                                            {/* INCREASE */}
                                             <button
                                                 onClick={() =>
                                                     updateQuantity(item.productId._id, "increase")
@@ -394,39 +381,8 @@ const Cart = () => {
                                 onChange={(e) =>
                                     setPhone(e.target.value)
                                 }
-                                minLength={10}
-                                maxLength={10}
                                 className="w-full bg-black border border-[#333] rounded-xl px-4 py-4 mb-5 outline-none focus:border-[#D4AF37]"
                             />
-
-                            {/* PAYMENT */}
-                            <select
-                                value={paymentMethod}
-                                onChange={(e) =>
-                                    setPaymentMethod(e.target.value)
-                                }
-                                className="w-full bg-black border border-[#333] rounded-xl px-4 py-4 mb-6 outline-none focus:border-[#D4AF37]"
-                            >
-
-                                <option value="COD">
-
-                                    Cash On Delivery
-
-                                </option>
-
-                                <option value="UPI">
-
-                                    UPI
-
-                                </option>
-
-                                <option value="CARD">
-
-                                    Credit / Debit Card
-
-                                </option>
-
-                            </select>
 
                             {/* TOTAL */}
                             <div className="flex justify-between items-center mb-8">
@@ -445,13 +401,13 @@ const Cart = () => {
 
                             </div>
 
-                            {/* BUTTON */}
+                            {/* PAYMENT BUTTON */}
                             <button
-                                onClick={handleCheckout}
+                                onClick={handleStripePayment}
                                 className="w-full bg-[#D4AF37] text-black py-4 rounded-xl font-bold hover:scale-[1.02] duration-300"
                             >
 
-                                Place Order
+                                Pay Now
 
                             </button>
 

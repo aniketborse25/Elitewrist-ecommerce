@@ -4,20 +4,19 @@ const Success = () => {
 
     return (
 
-        <div className="bg-black min-h-screen flex items-center justify-center px-6">
+        <div className="bg-black min-h-screen flex items-center justify-center">
 
-            <div className="bg-[#111] border border-[#222] rounded-[30px] p-12 text-center max-w-xl w-full">
+            <div className="bg-[#111] p-10 rounded-3xl text-center border border-[#222]">
 
-                <h1 className="text-5xl font-bold text-[#D4AF37] mb-6">
+                <h1 className="text-5xl font-bold text-[#D4AF37] mb-5">
 
                     Payment Successful 🎉
 
                 </h1>
 
-                <p className="text-gray-400 text-lg mb-10">
+                <p className="text-gray-400 mb-8">
 
-                    Thank you for shopping with EliteWrist.
-                    Your premium order has been placed successfully.
+                    Your order has been placed successfully.
 
                 </p>
 

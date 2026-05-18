@@ -23,6 +23,7 @@ import Orders from "./pages/Orders";
 import Collection from "./pages/Collection";
 import Brand from "./pages/Brand";
 import Success from "./pages/Success";
+import EditProfile from "./pages/User/EditProfile";
 function App() {
 
   // WAKE BACKEND
@@ -92,6 +93,11 @@ function App() {
           path="/success"
           element={<Success />}
         />
+        <Route
+          path="/edit-profile"
+          element={<EditProfile />}
+        />
+
 
       </Routes>
 

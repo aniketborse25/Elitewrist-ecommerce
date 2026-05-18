@@ -93,10 +93,20 @@ const Profile = () => {
                 {/* BUTTONS */}
                 <div className="space-y-4">
 
+                    {/* EDIT PROFILE */}
+                    <button
+                        onClick={() => navigate("/edit-profile")}
+                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
+                    >
+
+                        Edit Profile
+
+                    </button>
+
                     {/* ORDERS */}
                     <button
                         onClick={() => navigate("/orders")}
-                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
+                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
                     >
 
                         My Orders

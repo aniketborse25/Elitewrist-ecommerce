@@ -92,59 +92,51 @@ const Navbar = () => {
 
         <nav className="bg-black text-white sticky top-0 z-50 border-b border-gray-800">
 
-            <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-3 items-center">
 
-                {/* LOGO */}
-                <Link to="/">
+                {/* LEFT - LOGO */}
+                <div className="flex justify-start">
 
-                    <h1 className="text-3xl font-bold tracking-wide">
+                    <Link to="/" className="flex items-center">
 
-                        <span className="text-[#D4AF37]">
+                        <img
+                            src="/images/LOGO.png"
+                            alt="EliteWrist Logo"
+                            className="h-12 scale-150 origin-left w-auto object-contain"
+                        />
 
-                            Elite
+                    </Link>
 
-                        </span>
+                </div>
 
-                        Wrist
-
-                    </h1>
-
-                </Link>
-
-                {/* MENU */}
-                <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+                {/* CENTER - MENU */}
+                <div className="hidden md:flex items-center justify-center gap-10 text-sm font-medium">
 
                     <Link
                         to="/"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
-
                         Home
-
                     </Link>
 
                     <Link
                         to="/collection"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
-
                         Collection
-
                     </Link>
 
                     <Link
                         to="/brand"
                         className="hover:text-[#D4AF37] transition duration-300"
                     >
-
                         Brand
-
                     </Link>
 
                 </div>
 
                 {/* RIGHT SIDE */}
-                <div className="flex items-center gap-5">
+                <div className="flex items-center justify-end gap-5">
 
                     {/* SEARCH ICON */}
                     <button

@@ -1,44 +1,81 @@
 import { Link } from "react-router-dom";
 
+import {
+  Instagram,
+  Youtube,
+  Linkedin
+} from "lucide-react";
+
 const Footer = () => {
 
   return (
 
-    <footer className="bg-black text-white border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-3 gap-10">
+    <footer className="bg-black text-white border-t border-gray-800 mt-20">
+
+      {/* GOLD LINE */}
+      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
+
+      <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12">
 
         {/* LEFT */}
         <div>
 
-          <h2 className="text-3xl font-bold mb-4">
+          {/* LOGO */}
+          <Link to="/" className="inline-block mb-6">
 
-            <span className="text-[#D4AF37]">
-              Elite
-            </span>
+            <img
+              src="/images/LOGO.png"
+              alt="EliteWrist Logo"
+              className="h-20 w-auto object-contain"
+            />
 
-            Wrist
+          </Link>
 
-          </h2>
+          <p className="text-gray-400 leading-8 max-w-sm">
 
-          <p className="text-gray-400 leading-7">
-
-            Premium watches for every style.
-            Discover luxury and elegance.
+            Crafting timeless luxury watches
+            for modern elegance and prestige.
 
           </p>
+
+          {/* SOCIALS */}
+          <div className="flex items-center gap-5 mt-6">
+
+            <a
+              href="#"
+              className="hover:text-[#D4AF37] duration-300"
+            >
+              <Instagram size={22} />
+            </a>
+
+            <a
+              href="#"
+              className="hover:text-[#D4AF37] duration-300"
+            >
+              <Youtube size={22} />
+            </a>
+
+            <a
+              href="#"
+              className="hover:text-[#D4AF37] duration-300"
+            >
+              <Linkedin size={22} />
+            </a>
+
+          </div>
 
         </div>
 
         {/* QUICK LINKS */}
         <div>
 
-          <h3 className="text-xl font-semibold mb-5">
+          <h3 className="text-2xl font-semibold mb-6 text-white">
 
             Quick Links
 
           </h3>
 
-          <div className="flex flex-col gap-3 text-gray-400">
+          <div className="flex flex-col gap-4 text-gray-400">
 
             <Link
               to="/"
@@ -47,14 +84,11 @@ const Footer = () => {
               Home
             </Link>
 
-
             <Link
               to="/collection"
               className="hover:text-[#D4AF37] duration-300"
             >
-
               Collection
-
             </Link>
 
             <Link
@@ -78,19 +112,19 @@ const Footer = () => {
         {/* CONTACT */}
         <div>
 
-          <h3 className="text-xl font-semibold mb-5">
+          <h3 className="text-2xl font-semibold mb-6 text-white">
 
             Contact
 
           </h3>
 
-          <div className="text-gray-400 space-y-3">
+          <div className="text-gray-400 space-y-4 leading-7">
 
             <p>Email: support@EliteWrist.com</p>
 
             <p>Phone: +91 98765 43210</p>
 
-            <p> Mumbai, India </p>
+            <p>Mumbai, India</p>
 
           </div>
 
@@ -99,7 +133,7 @@ const Footer = () => {
       </div>
 
       {/* BOTTOM */}
-      <div className="border-t border-gray-800 text-center py-5 text-gray-500 text-sm">
+      <div className="border-t border-gray-800 text-center py-6 text-gray-500 text-sm tracking-wide">
 
         © 2026 EliteWrist — Crafted For Timeless Luxury
 

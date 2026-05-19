@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 import UserContext from "../../Context/UserContext";
@@ -14,6 +16,8 @@ const Login = () => {
         email: "",
         password: "",
     });
+
+    const [loading, setLoading] = useState(false);
 
     // HANDLE INPUT
     const handleChange = (e) => {
@@ -32,6 +36,8 @@ const Login = () => {
 
         try {
 
+            setLoading(true);
+
             const res = await axios.post(
                 "https://elitewrist-api.onrender.com/api/v1/user/login",
                 {
@@ -40,20 +46,19 @@ const Login = () => {
                 }
             );
 
-            console.log("loggin data:", res.data);
+            console.log("Login Response:", res.data);
 
-            // API RESPONSE
+            // BACKEND RESPONSE
             const data = res.data;
 
-            // SAVE USER IN LOCAL STORAGE
+            // SAVE ONLY USER OBJECT
             localStorage.setItem(
                 "userdata",
-                JSON.stringify(data)
+                JSON.stringify(data.user)
             );
+
             // SAVE USER IN CONTEXT
-            setUser(data);
-
-
+            setUser(data.user);
 
             // REDIRECT
             navigate("/");
@@ -64,7 +69,16 @@ const Login = () => {
 
             console.log(error);
 
-            alert("Invalid Email or Password");
+            alert(
+                error.response?.data?.message ||
+                "Invalid Email or Password"
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
 
         }
 
@@ -74,14 +88,29 @@ const Login = () => {
 
         <div className="min-h-screen bg-black flex items-center justify-center px-6">
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-10 w-full max-w-md">
+            <div className="bg-[#111] border border-[#222] rounded-[35px] p-10 w-full max-w-md">
 
                 {/* TITLE */}
-                <h1 className="text-white text-4xl font-bold text-center mb-8">
+                <div className="text-center mb-10">
 
-                    Login
+                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-xs mb-4">
 
-                </h1>
+                        EliteWrist
+
+                    </p>
+
+                    <h1 className="text-white text-4xl font-bold mb-3">
+
+                        Welcome Back
+
+                    </h1>
+
+                    <p className="text-gray-500 text-sm">
+
+                        EliteWrist Member Access
+                    </p>
+
+                </div>
 
                 {/* FORM */}
                 <form
@@ -90,31 +119,52 @@ const Login = () => {
                 >
 
                     {/* EMAIL */}
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={loginData.email}
-                        onChange={handleChange}
-                        className="w-full bg-black border border-gray-700 rounded-xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
-                        required
-                    />
+                    <div>
+
+                        <label className="block mb-2 text-sm text-gray-400">
+
+                            Email Address
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={loginData.email}
+                            onChange={handleChange}
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
+                            required
+                        />
+
+                    </div>
 
                     {/* PASSWORD */}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={loginData.password}
-                        onChange={handleChange}
-                        className="w-full bg-black border border-gray-700 rounded-xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
-                        required
-                    />
+                    <div>
+
+                        <label className="block mb-2 text-sm text-gray-400">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={loginData.password}
+                            onChange={handleChange}
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
+                            required
+                        />
+
+                    </div>
 
                     {/* BUTTON */}
                     <button
                         type="submit"
-                        className="w-full bg-[#D4AF37] text-black py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 duration-300"
+                        disabled={loading}
+                        className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold text-lg hover:opacity-90 duration-300"
                     >
 
                         Login
@@ -124,7 +174,7 @@ const Login = () => {
                 </form>
 
                 {/* REGISTER */}
-                <p className="text-gray-400 mt-6 text-center">
+                <p className="text-gray-400 mt-8 text-center text-sm">
 
                     Don't have an account?{" "}
 

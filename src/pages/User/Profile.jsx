@@ -58,12 +58,23 @@ const Profile = () => {
                     </p>
 
                     {/* AVATAR */}
-                    <div className="w-24 h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-4xl font-bold mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                    {user?.profileImage ? (
 
-                        {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                        <img
+                            src={user.profileImage}
+                            alt={user?.name}
+                            className="w-24 h-24 rounded-full object-cover border-2 border-[#D4AF37] mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.25)]"
+                        />
 
-                    </div>
+                    ) : (
 
+                        <div className="w-24 h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-4xl font-bold mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+
+                            {user?.name?.charAt(0)?.toUpperCase() || "U"}
+
+                        </div>
+
+                    )}
                     {/* NAME */}
                     <h1 className="text-3xl font-bold mb-3">
 

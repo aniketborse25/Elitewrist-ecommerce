@@ -20,6 +20,8 @@ const EditProfile = () => {
 
     const [address, setAddress] = useState("");
 
+    const [profileImage, setProfileImage] = useState(null);
+
     const [updateLoading, setUpdateLoading] = useState(false);
 
     // LOADING
@@ -58,17 +60,40 @@ const EditProfile = () => {
 
             setUpdateLoading(true);
 
+            // FORM DATA
+            const formData = new FormData();
+
+            formData.append("userId", user.id);
+
+            formData.append("name", name);
+
+            formData.append("address", address);
+
+            if (profileImage) {
+
+                formData.append(
+                    "profileImage",
+                    profileImage
+                );
+
+            }
+
+            // API REQUEST
             const res = await axios.put(
+
 
                 "https://elitewrist-api.onrender.com/api/v1/admin/users/update-profile",
 
+                formData,
+
                 {
-                    userId: user.id,
-                    name,
-                    address
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
                 }
 
             );
+            console.log(res.data.user);
 
             // UPDATE LOCAL STORAGE
             localStorage.setItem(
@@ -81,6 +106,10 @@ const EditProfile = () => {
 
             // UPDATE CONTEXT
             setUser(res.data.user);
+            localStorage.setItem(
+                "userdata",
+                JSON.stringify(res.data.user)
+            );
 
             alert("Profile updated successfully");
 
@@ -88,11 +117,11 @@ const EditProfile = () => {
             navigate("/profile");
 
         }
+
         catch (error) {
 
             console.log(error);
 
-            // SHOW BACKEND ERROR
             console.log(error.response?.data);
 
             alert(
@@ -190,6 +219,26 @@ const EditProfile = () => {
                             rows="4"
                             className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
                             placeholder="Enter your address"
+                        />
+
+                    </div>
+
+                    {/* PROFILE PHOTO */}
+                    <div>
+
+                        <label className="block mb-2 text-sm text-gray-400">
+
+                            Profile Photo
+
+                        </label>
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                                setProfileImage(e.target.files[0])
+                            }
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
                         />
 
                     </div>

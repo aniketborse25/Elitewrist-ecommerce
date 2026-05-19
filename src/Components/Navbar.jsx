@@ -195,13 +195,25 @@ const Navbar = () => {
                         className="hover:text-[#D4AF37] duration-300"
                     >
 
-                        {user?.name ? (
+                        {user ? (
 
-                            <div className="w-9 h-9 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-bold text-sm">
+                            user?.profileImage ? (
 
-                                {user?.name?.charAt(0).toUpperCase()}
+                                <img
+                                    src={user.profileImage}
+                                    alt={user.name}
+                                    className="w-9 h-9 rounded-full object-cover border border-[#D4AF37]"
+                                />
 
-                            </div>
+                            ) : (
+
+                                <div className="w-9 h-9 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-bold text-sm">
+
+                                    {user?.name?.charAt(0).toUpperCase()}
+
+                                </div>
+
+                            )
 
                         ) : (
 

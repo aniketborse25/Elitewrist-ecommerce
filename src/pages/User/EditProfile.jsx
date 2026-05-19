@@ -41,9 +41,9 @@ const EditProfile = () => {
 
         if (user) {
 
-            setName(user.name || "");
+            setName(user?.name || "");
 
-            setAddress(user.address || "");
+            setAddress(user?.address || "");
 
         }
 

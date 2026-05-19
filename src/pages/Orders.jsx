@@ -21,7 +21,7 @@ const Orders = () => {
 
     // FETCH ORDERS
     const fetchOrders = async () => {
-
+        if (!user?.id) return;
         try {
 
             const res = await axios.get(

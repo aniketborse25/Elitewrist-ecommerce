@@ -34,7 +34,7 @@ const Navbar = () => {
         const getCart = async () => {
 
             // NO USER
-            if (!user?._id) {
+            if (!user?.id) {
 
                 setCartCount(0);
 
@@ -45,7 +45,7 @@ const Navbar = () => {
             try {
 
                 const res = await axios.get(
-                    `https://elitewrist-api.onrender.com/api/v1/user/cart/${user?._id}`
+                    `https://elitewrist-api.onrender.com/api/v1/user/cart/${user?.id}`
                 );
 
                 const totalQuantity = (res.data.items || []).reduce(

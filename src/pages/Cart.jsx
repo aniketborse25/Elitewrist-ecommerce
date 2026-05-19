@@ -41,7 +41,7 @@ const Cart = () => {
     // FETCH CART
     const getCart = async () => {
 
-        if (!user) return;
+        if (!user?.id) return;
 
         try {
 

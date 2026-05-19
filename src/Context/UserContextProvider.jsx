@@ -1,42 +1,51 @@
-        import { useState, useEffect } from "react";
-        import UserContext from "./UserContext";
+import { useState, useEffect } from "react";
+import UserContext from "./UserContext";
 
-        function UserContextProvider({ children }) {
+function UserContextProvider({ children }) {
 
-            const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-            const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-            useEffect(() => {
+    useEffect(() => {
 
-                const savedUser = localStorage.getItem("userdata");
+        const savedUser = localStorage.getItem("userdata");
 
-                if (savedUser && savedUser !== "undefined") {
+        if (savedUser && savedUser !== "undefined") {
 
-                    setUser(JSON.parse(savedUser));
+            try {
 
-                }
+                setUser(JSON.parse(savedUser));
 
-                setLoading(false);
+            }
 
-            }, []);
+            catch {
 
-            return (
+                localStorage.removeItem("userdata");
 
-                <UserContext.Provider
-                    value={{
-                        user,
-                        setUser,
-                        loading,
-                    }}
-                >
-
-                    {children}
-
-                </UserContext.Provider>
-
-            );
+            }
 
         }
 
-        export default UserContextProvider;
+        setLoading(false);
+
+    }, []);
+    return (
+
+        <UserContext.Provider
+            value={{
+                user,
+                setUser,
+                loading,
+            }}
+        >
+
+            {children}
+
+        </UserContext.Provider>
+
+    );
+
+}
+
+export default UserContextProvider;

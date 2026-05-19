@@ -60,21 +60,21 @@ const Profile = () => {
                     {/* AVATAR */}
                     <div className="w-24 h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-4xl font-bold mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
 
-                        {user.name.charAt(0).toUpperCase()}
+                        {user?.name?.charAt(0)?.toUpperCase() || "U"}
 
                     </div>
 
                     {/* NAME */}
                     <h1 className="text-3xl font-bold mb-3">
 
-                        {user.name}
+                        {user?.name || "Elite User"}
 
                     </h1>
 
                     {/* EMAIL */}
                     <p className="text-gray-500 text-sm break-all leading-7">
 
-                        {user.email}
+                        {user?.email || "No Email"}
 
                     </p>
 

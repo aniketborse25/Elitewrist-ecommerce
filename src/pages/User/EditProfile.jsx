@@ -63,7 +63,10 @@ const EditProfile = () => {
             // FORM DATA
             const formData = new FormData();
 
-            formData.append("userId", user.id);
+            formData.append(
+                "userId",
+                user.id || user._id
+            );
 
             formData.append("name", name);
 

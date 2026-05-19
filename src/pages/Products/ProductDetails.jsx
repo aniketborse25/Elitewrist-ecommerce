@@ -11,19 +11,17 @@ const ProductDetails = () => {
 
     const navigate = useNavigate();
 
-    // USER CONTEXT
     const { user, loading } = useContext(UserContext);
 
-    // PRODUCT STATE
     const [product, setProduct] = useState(null);
 
-    // QUANTITY
     const [quantity, setQuantity] = useState(1);
+
+    const [openSection, setOpenSection] = useState("description");
 
     // FETCH PRODUCT
     useEffect(() => {
 
-        // SCROLL TOP
         window.scrollTo(0, 0);
 
         const fetchProduct = async () => {
@@ -53,7 +51,6 @@ const ProductDetails = () => {
     // ADD TO CART
     const addToCart = async () => {
 
-        // USER LOADING
         if (loading) {
 
             alert("Please Wait...");
@@ -62,7 +59,6 @@ const ProductDetails = () => {
 
         }
 
-        // NOT LOGIN
         if (!user) {
 
             navigate("/login");
@@ -73,7 +69,7 @@ const ProductDetails = () => {
 
         try {
 
-            const res = await axios.post(
+            await axios.post(
                 "https://elitewrist-api.onrender.com/api/v1/user/cart/add",
                 {
                     userId: user.id,
@@ -81,10 +77,6 @@ const ProductDetails = () => {
                     quantity: quantity,
                 }
             );
-
-            console.log(res.data);
-
-        
 
             navigate("/cart");
 
@@ -107,90 +99,342 @@ const ProductDetails = () => {
 
     return (
 
-        <div className="bg-black min-h-screen text-white px-6 py-16">
+        <div className="bg-black text-white min-h-screen">
 
-            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div className="max-w-[1700px] mx-auto grid lg:grid-cols-[55%_45%]">
 
-                {/* IMAGE */}
-                <div className="bg-[#111] border border-gray-800 rounded-[35px] p-8 flex items-center justify-center">
+                {/* LEFT SIDE IMAGE */}
+                <div className="sticky top-0 h-screen flex items-center justify-center bg-[#050505] border-r border-[#161616] px-10">
 
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full max-w-[500px] object-contain"
-                    />
+                    <div className="relative">
+
+                        {/* GLOW */}
+                        <div className="absolute inset-0 bg-[#D4AF37]/10 blur-[120px] rounded-full"></div>
+
+                        {/* IMAGE */}
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className="relative z-10 w-full max-w-[900px] object-contain hover:scale-[1.03] duration-700"
+                        />
+
+                    </div>
 
                 </div>
 
-                {/* CONTENT */}
-                <div>
+                {/* RIGHT SIDE CONTENT */}
+                <div className="px-8 lg:px-20 py-24">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[6px] text-sm mb-4">
+                    <div className="max-w-[650px]">
 
-                        Luxury Collection
+                        {/* COLLECTION */}
+                        <p className="text-[#D4AF37] uppercase tracking-[8px] text-xs mb-8">
 
-                    </p>
+                            EliteWrist Luxury Collection
 
-                    <h1 className="text-5xl font-bold mb-6">
+                        </p>
 
-                        {product.name}
+                        {/* PRODUCT NAME */}
+                        <h1 className="text-5xl lg:text-6xl leading-[80px] font-light mb-10">
 
-                    </h1>
+                            {product.name}
 
-                    <p className="text-gray-400 text-lg leading-8 mb-8">
+                        </h1>
 
-                        {product.description}
+                        {/* SHORT DESCRIPTION */}
+                        <p className="text-gray-400 text-xl leading-[42px] mb-12">
 
-                    </p>
+                            {product.shortDescription}
 
-                    <h2 className="text-[#D4AF37] text-5xl font-bold mb-10">
+                        </p>
 
-                        ₹{product.price}
+                        {/* PRICE */}
+                        <div className="mb-14">
 
-                    </h2>
+                            <h2 className="text-[#D4AF37] text-4xl font-light mb-3">
 
-                    {/* BUTTON SECTION */}
-                    <div className="flex items-center gap-6">
+                                ₹ {product.price}
 
-                        {/* QUANTITY */}
-                        <div className="flex items-center bg-[#111] border border-gray-800 rounded-2xl overflow-hidden">
+                            </h2>
 
+                            <p className="text-gray-500 text-sm">
+
+                                Inclusive of all taxes
+
+                            </p>
+
+                        </div>
+
+                        {/* QUANTITY + BUTTON */}
+                        <div className="flex flex-wrap items-center gap-5 mb-20">
+
+                            {/* QUANTITY */}
+                            <div className="flex items-center border border-[#222] bg-[#0c0c0c]">
+
+                                <button
+                                    onClick={() =>
+                                        quantity > 1 &&
+                                        setQuantity(quantity - 1)
+                                    }
+                                    className="px-6 py-4 hover:bg-[#151515] duration-300"
+                                >
+                                    -
+                                </button>
+
+                                <span className="px-8 text-lg">
+
+                                    {quantity}
+
+                                </span>
+
+                                <button
+                                    onClick={() =>
+                                        setQuantity(quantity + 1)
+                                    }
+                                    className="px-6 py-4 hover:bg-[#151515] duration-300"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+                            {/* ADD TO CART */}
                             <button
-                                onClick={() =>
-                                    quantity > 1 &&
-                                    setQuantity(quantity - 1)
-                                }
-                                className="px-6 py-4 text-2xl hover:bg-[#1a1a1a]"
+                                onClick={addToCart}
+                                className="bg-[#D4AF37] text-black px-14 py-4 uppercase tracking-[3px] text-sm font-semibold hover:opacity-90 duration-300"
                             >
-                                -
-                            </button>
 
-                            <span className="px-8 text-xl font-semibold">
+                                Add To Cart
 
-                                {quantity}
-
-                            </span>
-
-                            <button
-                                onClick={() =>
-                                    setQuantity(quantity + 1)
-                                }
-                                className="px-6 py-4 text-2xl hover:bg-[#1a1a1a]"
-                            >
-                                +
                             </button>
 
                         </div>
 
-                        {/* ADD TO CART */}
-                        <button
-                            onClick={addToCart}
-                            className="bg-[#D4AF37] text-black px-10 py-4 rounded-2xl text-lg font-bold hover:scale-105 duration-300"
-                        >
+                        {/* ACCORDION */}
 
-                            Add To Cart
+                        {/* DESCRIPTION */}
+                        <div className="border-t border-[#1a1a1a]">
 
-                        </button>
+                            <button
+                                onClick={() =>
+                                    setOpenSection(
+                                        openSection === "description"
+                                            ? ""
+                                            : "description"
+                                    )
+                                }
+                                className="w-full flex justify-between items-center py-7"
+                            >
+
+                                <span className="uppercase tracking-[3px] text-sm">
+
+                                    Product Description
+
+                                </span>
+
+                                <span className="text-[#D4AF37] text-xl">
+
+                                    {openSection === "description" ? "−" : "+"}
+
+                                </span>
+
+                            </button>
+
+                            {openSection === "description" && (
+
+                                <div className="pb-10 text-gray-400 text-lg leading-[38px]">
+
+                                    {product.fullDescription}
+
+                                </div>
+
+                            )}
+
+                        </div>
+
+                        {/* FEATURES */}
+                        <div className="border-t border-[#1a1a1a]">
+
+                            <button
+                                onClick={() =>
+                                    setOpenSection(
+                                        openSection === "features"
+                                            ? ""
+                                            : "features"
+                                    )
+                                }
+                                className="w-full flex justify-between items-center py-7"
+                            >
+
+                                <span className="uppercase tracking-[3px] text-sm">
+
+                                    Product Features
+
+                                </span>
+
+                                <span className="text-[#D4AF37] text-xl">
+
+                                    {openSection === "features" ? "−" : "+"}
+
+                                </span>
+
+                            </button>
+
+                            {openSection === "features" && (
+
+                                <div className="pb-10 space-y-5">
+
+                                    {product.features?.map((feature, index) => (
+
+                                        <div
+                                            key={index}
+                                            className="flex items-center gap-4 text-lg text-gray-400"
+                                        >
+
+                                            <span className="text-[#D4AF37]">
+
+                                                ✦
+
+                                            </span>
+
+                                            {feature}
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+
+                            )}
+
+                        </div>
+
+                        {/* MANUFACTURING */}
+                        <div className="border-t border-b border-[#1a1a1a]">
+
+                            <button
+                                onClick={() =>
+                                    setOpenSection(
+                                        openSection === "manufacturing"
+                                            ? ""
+                                            : "manufacturing"
+                                    )
+                                }
+                                className="w-full flex justify-between items-center py-7"
+                            >
+
+                                <span className="uppercase tracking-[3px] text-sm">
+
+                                    Manufacturer & Importer
+
+                                </span>
+
+                                <span className="text-[#D4AF37] text-xl">
+
+                                    {openSection === "manufacturing" ? "−" : "+"}
+
+                                </span>
+
+                            </button>
+
+                            {openSection === "manufacturing" && (
+
+                                <div className="pb-10 text-gray-400 text-lg leading-[38px]">
+
+                                    {product.manufacturing}
+
+                                </div>
+
+                            )}
+
+                        </div>
+
+                        {/* SPECIFICATIONS */}
+                        <div className="mt-24">
+
+                            <p className="text-[#D4AF37] uppercase tracking-[8px] text-xs mb-14">
+
+                                Specifications
+
+                            </p>
+
+                            <div className="space-y-8">
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Movement
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.movement}
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Case Material
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.caseMaterial}
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Dial Color
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.dialColor}
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Strap Material
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.strapMaterial}
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Water Resistance
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.waterResistance}
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between border-b border-[#1a1a1a] pb-6">
+
+                                    <span className="text-gray-500">
+                                        Glass
+                                    </span>
+
+                                    <span className="text-lg">
+                                        {product.specifications?.glass}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     </div>
 

@@ -30,7 +30,6 @@ const Navbar = () => {
 
         const getCart = async () => {
 
-            // NO USER
             if (!(user?.id || user?._id)) {
 
                 setCartCount(0);
@@ -71,11 +70,7 @@ const Navbar = () => {
 
         e.preventDefault();
 
-        if (!search.trim()) {
-
-            return;
-
-        }
+        if (!search.trim()) return;
 
         navigate(`/collection?search=${search}`);
 
@@ -85,29 +80,13 @@ const Navbar = () => {
 
     return (
 
-        <nav className="bg-black text-white sticky top-0 z-50 border-b border-[#1a1a1a]">
+        <nav className="bg-black/95 backdrop-blur-md text-white sticky top-0 z-50 border-b border-[#1a1a1a]">
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 grid grid-cols-3 items-center">
+            {/* NAV CONTAINER */}
+            <div className="max-w-7xl mx-auto px-4 md:px-6 h-[72px] md:h-[85px] flex items-center justify-between">
 
-                {/* LEFT LOGO */}
-                <div className="flex justify-start z-50">
-
-                    <Link
-                        to="/"
-                        className="flex items-center cursor-pointer"
-                    >
-
-                        <img
-                            src="/images/LOGO.png"
-                            alt="EliteWrist Logo"
-                            className="h-9 md:h-12 scale-125 md:scale-150 origin-left w-auto object-contain"
-                        />
-
-                    </Link>
-
-                </div>
-                {/* CENTER MENU */}
-                <div className="hidden md:flex items-center justify-center gap-10 text-sm tracking-[2px] uppercase">
+                {/* LEFT MENU */}
+                <div className="hidden md:flex items-center gap-10 text-sm tracking-[2px] uppercase">
 
                     <Link
                         to="/"
@@ -138,24 +117,63 @@ const Navbar = () => {
 
                 </div>
 
-                {/* RIGHT SIDE */}
-                <div className="flex items-center justify-end gap-4 md:gap-6">
+                {/* MOBILE LEFT */}
+                <div className="md:hidden flex items-center gap-4">
 
                     {/* SEARCH */}
                     <button
-                        onClick={() =>
-                            setShowSearch(!showSearch)
-                        }
+                        onClick={() => setShowSearch(!showSearch)}
                         className="hover:text-[#D4AF37] duration-300"
                     >
 
                         {showSearch ? (
 
-                            <X size={20} />
+                            <X size={21} />
 
                         ) : (
 
-                            <Search size={20} />
+                            <Search size={21} />
+
+                        )}
+
+                    </button>
+
+                </div>
+
+                {/* CENTER LOGO */}
+                <div className="absolute left-1/2 -translate-x-1/2">
+
+                    <Link
+                        to="/"
+                        className="flex items-center cursor-pointer"
+                    >
+
+                        <img
+                            src="/images/LOGO.png"
+                            alt="EliteWrist Logo"
+                            className="h-10 md:h-12 w-auto object-contain"
+                        />
+
+                    </Link>
+
+                </div>
+
+                {/* RIGHT SIDE */}
+                <div className="flex items-center gap-4 md:gap-6">
+
+                    {/* DESKTOP SEARCH */}
+                    <button
+                        onClick={() => setShowSearch(!showSearch)}
+                        className="hidden md:block hover:text-[#D4AF37] duration-300"
+                    >
+
+                        {showSearch ? (
+
+                            <X size={21} />
+
+                        ) : (
+
+                            <Search size={21} />
 
                         )}
 
@@ -167,7 +185,7 @@ const Navbar = () => {
                         className="relative hover:text-[#D4AF37] duration-300"
                     >
 
-                        <ShoppingCart size={20} />
+                        <ShoppingCart size={22} />
 
                         {user && cartCount > 0 && (
 
@@ -201,7 +219,7 @@ const Navbar = () => {
 
                                 <div className="w-9 h-9 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-bold text-sm">
 
-                                    {user?.name?.charAt(0).toUpperCase()}
+                                    {user?.name?.charAt(0)?.toUpperCase()}
 
                                 </div>
 
@@ -237,13 +255,13 @@ const Navbar = () => {
                             onChange={(e) =>
                                 setSearch(e.target.value)
                             }
-                            className="flex-1 bg-[#111] border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
+                            className="flex-1 bg-[#111] border border-[#2a2a2a] rounded-2xl px-5 py-3 md:py-4 outline-none focus:border-[#D4AF37]"
                         />
 
                         {/* BUTTON */}
                         <button
                             type="submit"
-                            className="bg-[#D4AF37] text-black px-8 py-4 rounded-2xl font-semibold hover:opacity-90 duration-300"
+                            className="bg-[#D4AF37] text-black px-8 py-3 md:py-4 rounded-2xl font-semibold hover:opacity-90 duration-300"
                         >
 
                             Search

@@ -30,7 +30,10 @@ const Orders = () => {
                 `https://elitewrist-api.onrender.com/api/v1/user/order/${user?.id || user?._id}`
             );
 
-            setOrders(res.data);
+            console.log(res.data);
+
+            // FIX
+            setOrders(res.data.orders || []);
 
         }
 
@@ -153,151 +156,114 @@ const Orders = () => {
 
                     <div className="space-y-6 md:space-y-8">
 
-                        {orders.map((order) => (
+                        {Array.isArray(orders) &&
+                            orders.map((order) => (
 
-                            <div
-                                key={order._id}
-                                className="bg-[#111] border border-[#222] rounded-[24px] md:rounded-[35px] p-5 md:p-8 hover:border-[#D4AF37] duration-300"
-                            >
+                                <div
+                                    key={order._id}
+                                    className="bg-[#111] border border-[#222] rounded-[24px] md:rounded-[35px] p-5 md:p-8 hover:border-[#D4AF37] duration-300"
+                                >
 
-                                {/* TOP */}
-                                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-6 md:mb-8">
+                                    {/* TOP */}
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-6 md:mb-8">
 
-                                    <div>
+                                        <div>
 
-                                        <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-[3px] md:tracking-[4px] mb-3">
+                                            <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-[3px] md:tracking-[4px] mb-3">
 
-                                            Order Details
+                                                Order Details
 
-                                        </p>
+                                            </p>
 
-                                        <h2 className="text-xl md:text-2xl font-bold mb-2">
+                                            <h2 className="text-xl md:text-2xl font-bold mb-2">
 
-                                            #{order._id.slice(-6)}
-
-                                        </h2>
-
-                                        <p className="text-gray-500 text-xs md:text-sm">
-
-                                            {new Date(order.createdAt).toLocaleDateString()}
-
-                                        </p>
-
-                                    </div>
-
-                                    {/* STATUS */}
-                                    <div className="bg-[#D4AF37] text-black px-4 md:px-5 py-2 rounded-full font-bold text-xs md:text-sm w-fit">
-
-                                        {order.orderStatus}
-
-                                    </div>
-
-                                </div>
-
-                                {/* PRODUCTS */}
-                                <div className="space-y-4 md:space-y-5">
-
-                                    {order.items.map((item, index) => (
-
-                                        <div
-                                            key={index}
-                                            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 bg-black border border-[#222] rounded-[22px] md:rounded-[25px] p-4 md:p-5"
-                                        >
-
-                                            {/* LEFT */}
-                                            <div className="flex items-center gap-4 md:gap-5">
-
-                                                {/* IMAGE */}
-                                                <div className="bg-[#111] rounded-[16px] md:rounded-[20px] p-2 md:p-3">
-
-                                                    <img
-                                                        src={item.image}
-                                                        alt={item.name}
-                                                        className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl"
-                                                    />
-
-                                                </div>
-
-                                                {/* INFO */}
-                                                <div>
-
-                                                    <h3 className="text-lg md:text-2xl font-bold mb-2">
-
-                                                        {item.name}
-
-                                                    </h3>
-
-                                                    <p className="text-gray-400 text-xs md:text-sm mb-1">
-
-                                                        Quantity : {item.quantity}
-
-                                                    </p>
-
-                                                    <p className="text-gray-500 text-xs md:text-sm">
-
-                                                        ₹{item.price}
-
-                                                    </p>
-
-                                                </div>
-
-                                            </div>
-
-                                            {/* RIGHT */}
-                                            <h2 className="text-[#D4AF37] text-2xl md:text-3xl font-bold sm:text-right">
-
-                                                ₹{item.price * item.quantity}
+                                                #{order._id.slice(-6)}
 
                                             </h2>
 
+                                            <p className="text-gray-500 text-xs md:text-sm">
+
+                                                {new Date(order.createdAt).toLocaleDateString()}
+
+                                            </p>
+
                                         </div>
 
-                                    ))}
+                                        {/* STATUS */}
+                                        <div className="bg-[#D4AF37] text-black px-4 md:px-5 py-2 rounded-full font-bold text-xs md:text-sm w-fit">
 
-                                </div>
+                                            {order.orderStatus}
 
-                                {/* BOTTOM */}
-                                <div className="border-t border-[#222] mt-6 md:mt-8 pt-6 md:pt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-8">
-
-                                    {/* ADDRESS */}
-                                    <div>
-
-                                        <p className="text-gray-500 text-xs md:text-sm mb-3">
-
-                                            Shipping Address
-
-                                        </p>
-
-                                        <h2 className="text-base md:text-lg font-semibold leading-7 md:leading-8">
-
-                                            {order.shippingAddress}
-
-                                        </h2>
+                                        </div>
 
                                     </div>
 
-                                    {/* TOTAL */}
-                                    <div className="md:text-right">
+                                    {/* PRODUCTS */}
+                                    <div className="space-y-4 md:space-y-5">
 
-                                        <p className="text-gray-500 text-xs md:text-sm mb-3">
+                                        {Array.isArray(order.items) &&
+                                            order.items.map((item, index) => (
 
-                                            Total Amount
+                                                <div
+                                                    key={index}
+                                                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 bg-black border border-[#222] rounded-[22px] md:rounded-[25px] p-4 md:p-5"
+                                                >
 
-                                        </p>
+                                                    {/* LEFT */}
+                                                    <div className="flex items-center gap-4 md:gap-5">
 
-                                        <h2 className="text-3xl md:text-4xl font-bold text-[#D4AF37]">
+                                                        {/* IMAGE */}
+                                                        <div className="bg-[#111] rounded-[16px] md:rounded-[20px] p-2 md:p-3">
 
-                                            ₹{order.totalAmount}
+                                                            <img
+                                                                src={item.image}
+                                                                alt={item.name}
+                                                                className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl"
+                                                            />
 
-                                        </h2>
+                                                        </div>
+
+                                                        {/* INFO */}
+                                                        <div>
+
+                                                            <h3 className="text-lg md:text-2xl font-bold mb-2">
+
+                                                                {item.name}
+
+                                                            </h3>
+
+                                                            <p className="text-gray-400 text-xs md:text-sm mb-1">
+
+                                                                Quantity : {item.quantity}
+
+                                                            </p>
+
+                                                            <p className="text-gray-500 text-xs md:text-sm">
+
+                                                                ₹{item.price}
+
+                                                            </p>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* RIGHT */}
+                                                    <h2 className="text-[#D4AF37] text-2xl md:text-3xl font-bold sm:text-right">
+
+                                                        ₹{item.price * item.quantity}
+
+                                                    </h2>
+
+                                                </div>
+
+                                            ))}
 
                                     </div>
 
                                 </div>
 
-                            </div>
-
-                        ))}
+                            ))}
 
                     </div>
 

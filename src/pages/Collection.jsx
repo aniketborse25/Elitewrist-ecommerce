@@ -29,8 +29,6 @@ const Collection = () => {
                 "https://elitewrist-api.onrender.com/api/v1/products"
             );
 
-            console.log(res.data.products);
-
             setProducts(res.data.products);
 
             setFilteredProducts(res.data.products);
@@ -80,10 +78,6 @@ const Collection = () => {
 
         );
 
-        console.log(category);
-
-        console.log(filtered);
-
         setFilteredProducts(filtered);
 
     };
@@ -97,29 +91,30 @@ const Collection = () => {
 
     return (
 
-        <div className="bg-black min-h-screen text-white px-6 py-16">
+        <div className="bg-black min-h-screen text-white px-4 md:px-6 py-14 md:py-16">
 
             <div className="max-w-7xl mx-auto">
 
                 {/* HEADING */}
-                <div className="mb-16 text-center">
+                <div className="mb-14 md:mb-16 text-center px-2">
 
-                    <p className="text-[#D4AF37] tracking-[8px] uppercase mb-5 text-sm">
+                    <p className="text-[#D4AF37] tracking-[4px] md:tracking-[8px] uppercase mb-5 text-[11px] md:text-sm">
 
                         Elite Collection
 
                     </p>
 
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 leading-tight">
 
                         Timeless Luxury
+
                         <br />
 
                         Crafted For Visionaries
 
                     </h1>
 
-                    <p className="text-gray-500 text-base md:text-lg leading-8 max-w-3xl mx-auto">
+                    <p className="text-gray-500 text-sm md:text-lg leading-7 md:leading-8 max-w-3xl mx-auto">
 
                         Explore our premium collection of luxury watches
                         crafted with elegance, precision, and timeless design.
@@ -129,14 +124,14 @@ const Collection = () => {
                 </div>
 
                 {/* CATEGORY BUTTONS */}
-                <div className="flex flex-wrap justify-center gap-4 mb-16">
+                <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-14 md:mb-16">
 
                     {/* ALL */}
                     <button
                         onClick={() => filterCategory("All")}
-                        className={`px-6 py-3 rounded-2xl border duration-300 ${activeCategory === "All"
-                                ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                                : "border-[#333] hover:border-[#D4AF37]"
+                        className={`px-5 md:px-6 py-2.5 md:py-3 rounded-2xl border duration-300 text-sm md:text-base ${activeCategory === "All"
+                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
+                            : "border-[#333] hover:border-[#D4AF37]"
                             }`}
                     >
 
@@ -147,9 +142,9 @@ const Collection = () => {
                     {/* CLASSIC */}
                     <button
                         onClick={() => filterCategory("Classic")}
-                        className={`px-6 py-3 rounded-2xl border duration-300 ${activeCategory === "Classic"
-                                ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                                : "border-[#333] hover:border-[#D4AF37]"
+                        className={`px-5 md:px-6 py-2.5 md:py-3 rounded-2xl border duration-300 text-sm md:text-base ${activeCategory === "Classic"
+                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
+                            : "border-[#333] hover:border-[#D4AF37]"
                             }`}
                     >
 
@@ -160,9 +155,9 @@ const Collection = () => {
                     {/* SPORT */}
                     <button
                         onClick={() => filterCategory("Sport")}
-                        className={`px-6 py-3 rounded-2xl border duration-300 ${activeCategory === "Sport"
-                                ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                                : "border-[#333] hover:border-[#D4AF37]"
+                        className={`px-5 md:px-6 py-2.5 md:py-3 rounded-2xl border duration-300 text-sm md:text-base ${activeCategory === "Sport"
+                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
+                            : "border-[#333] hover:border-[#D4AF37]"
                             }`}
                     >
 
@@ -173,9 +168,9 @@ const Collection = () => {
                     {/* LUXURY */}
                     <button
                         onClick={() => filterCategory("Luxury")}
-                        className={`px-6 py-3 rounded-2xl border duration-300 ${activeCategory === "Luxury"
-                                ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                                : "border-[#333] hover:border-[#D4AF37]"
+                        className={`px-5 md:px-6 py-2.5 md:py-3 rounded-2xl border duration-300 text-sm md:text-base ${activeCategory === "Luxury"
+                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
+                            : "border-[#333] hover:border-[#D4AF37]"
                             }`}
                     >
 
@@ -186,9 +181,9 @@ const Collection = () => {
                     {/* MODERN */}
                     <button
                         onClick={() => filterCategory("Modern")}
-                        className={`px-6 py-3 rounded-2xl border duration-300 ${activeCategory === "Modern"
-                                ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                                : "border-[#333] hover:border-[#D4AF37]"
+                        className={`px-5 md:px-6 py-2.5 md:py-3 rounded-2xl border duration-300 text-sm md:text-base ${activeCategory === "Modern"
+                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
+                            : "border-[#333] hover:border-[#D4AF37]"
                             }`}
                     >
 
@@ -199,7 +194,7 @@ const Collection = () => {
                 </div>
 
                 {/* PRODUCTS */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
 
                     {filteredProducts.map((product) => (
 

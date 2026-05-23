@@ -84,7 +84,6 @@ const EditProfile = () => {
             // API REQUEST
             const res = await axios.put(
 
-
                 "https://elitewrist-api.onrender.com/api/v1/admin/users/update-profile",
 
                 formData,
@@ -96,23 +95,15 @@ const EditProfile = () => {
                 }
 
             );
-            console.log(res.data.user);
 
-            // UPDATE LOCAL STORAGE
+            // UPDATE STORAGE
             localStorage.setItem(
-
                 "userdata",
-
                 JSON.stringify(res.data.user)
-
             );
 
             // UPDATE CONTEXT
             setUser(res.data.user);
-            localStorage.setItem(
-                "userdata",
-                JSON.stringify(res.data.user)
-            );
 
             alert("Profile updated successfully");
 
@@ -147,34 +138,34 @@ const EditProfile = () => {
 
     return (
 
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-16">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-6 py-10 md:py-16">
 
             {/* CARD */}
-            <div className="w-full max-w-md bg-[#111] border border-[#222] rounded-[35px] p-8 hover:border-[#D4AF37] duration-500">
+            <div className="w-full max-w-md bg-[#111] border border-[#222] rounded-[28px] md:rounded-[35px] p-6 sm:p-7 md:p-8 hover:border-[#D4AF37] duration-500">
 
                 {/* TOP */}
                 <div className="text-center mb-8">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-xs mb-4">
+                    <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-xs mb-4">
 
                         EliteWrist
 
                     </p>
 
-                    <h1 className="text-3xl font-bold mb-3">
+                    <h1 className="text-2xl sm:text-3xl font-bold mb-3">
 
                         Edit Profile
 
                     </h1>
 
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-sm md:text-base">
 
                         Update your personal information
 
                     </p>
 
                     {/* LINE */}
-                    <div className="w-14 h-[2px] bg-[#D4AF37] mx-auto mt-6 rounded-full"></div>
+                    <div className="w-12 md:w-14 h-[2px] bg-[#D4AF37] mx-auto mt-5 md:mt-6 rounded-full"></div>
 
                 </div>
 
@@ -199,7 +190,7 @@ const EditProfile = () => {
                             onChange={(e) =>
                                 setName(e.target.value)
                             }
-                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-4 md:px-5 py-3 md:py-4 outline-none focus:border-[#D4AF37] text-sm md:text-base"
                             placeholder="Enter your name"
                         />
 
@@ -220,7 +211,7 @@ const EditProfile = () => {
                                 setAddress(e.target.value)
                             }
                             rows="4"
-                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-4 md:px-5 py-3 md:py-4 outline-none focus:border-[#D4AF37] text-sm md:text-base resize-none"
                             placeholder="Enter your address"
                         />
 
@@ -241,7 +232,7 @@ const EditProfile = () => {
                             onChange={(e) =>
                                 setProfileImage(e.target.files[0])
                             }
-                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-4 md:px-5 py-3 md:py-4 outline-none focus:border-[#D4AF37] text-sm md:text-base"
                         />
 
                     </div>
@@ -253,7 +244,7 @@ const EditProfile = () => {
                         <button
                             type="submit"
                             disabled={updateLoading}
-                            className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
+                            className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300 text-sm md:text-base"
                         >
 
                             {updateLoading
@@ -266,7 +257,7 @@ const EditProfile = () => {
                         <button
                             type="button"
                             onClick={() => navigate("/profile")}
-                            className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
+                            className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300 text-sm md:text-base"
                         >
 
                             Cancel

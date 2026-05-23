@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
 
   return (
 
-    <div className="bg-[#111] border border-[#222] rounded-[30px] overflow-hidden hover:border-[#D4AF37] duration-300 group">
+    <div className="bg-[#111] border border-[#222] rounded-[24px] md:rounded-[30px] overflow-hidden hover:border-[#D4AF37] duration-300 group">
 
       {/* IMAGE */}
       <div
@@ -17,33 +17,33 @@ const ProductCard = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-[320px] object-cover group-hover:scale-105 duration-500"
+          className="w-full h-[250px] sm:h-[280px] md:h-[320px] object-cover group-hover:scale-105 duration-500"
         />
 
       </div>
 
       {/* CONTENT */}
-      <div className="p-6">
+      <div className="p-5 md:p-6">
 
         {/* NAME */}
-        <h2 className="text-2xl font-bold mb-3 text-white">
+        <h2 className="text-xl md:text-2xl font-bold mb-3 text-white line-clamp-1">
 
           {product.name}
 
         </h2>
 
         {/* DESCRIPTION */}
-        <p className="text-gray-500 text-sm leading-7 mb-5">
+        <p className="text-gray-500 text-sm leading-6 md:leading-7 mb-5">
 
-          {product.description?.slice(0, 80)}...
+          {product.description?.slice(0, 70)}...
 
         </p>
 
         {/* PRICE + BUTTON */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
 
           {/* PRICE */}
-          <h3 className="text-[#D4AF37] text-2xl font-bold">
+          <h3 className="text-[#D4AF37] text-xl md:text-2xl font-bold">
 
             ₹{product.price}
 
@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
           {/* BUTTON */}
           <Link
             to={`/product/${product._id}`}
-            className="bg-[#D4AF37] text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 duration-300"
+            className="bg-[#D4AF37] text-black px-4 md:px-5 py-2 rounded-xl font-semibold hover:scale-105 duration-300 text-sm md:text-base whitespace-nowrap"
           >
 
             View Details

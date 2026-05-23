@@ -57,24 +57,24 @@ const FeaturedProducts = () => {
 
     return (
 
-        <section className="bg-black text-white py-20 px-4 md:px-8">
+        <section className="bg-black text-white py-16 md:py-20 px-4 md:px-8">
 
             {/* HEADING */}
-            <div className="text-center mb-14">
+            <div className="text-center mb-12 md:mb-14">
 
-                <p className="text-[#D4AF37] tracking-[5px] uppercase text-xs md:text-sm mb-4">
+                <p className="text-[#D4AF37] tracking-[4px] md:tracking-[5px] uppercase text-[11px] md:text-sm mb-4">
 
                     Elite Collection
 
                 </p>
 
-                <h2 className="text-3xl md:text-5xl font-bold mb-5">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-5 leading-tight">
 
                     Featured Watches
 
                 </h2>
 
-                <p className="text-gray-500 max-w-2xl mx-auto leading-8 text-sm md:text-base">
+                <p className="text-gray-500 max-w-2xl mx-auto leading-7 md:leading-8 text-sm md:text-base px-2">
 
                     Crafted with timeless elegance and precision
                     for those who value luxury and sophistication.
@@ -84,7 +84,7 @@ const FeaturedProducts = () => {
             </div>
 
             {/* PRODUCTS GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
 
                 {products.slice(0, 6).map((product) => (
 
@@ -97,18 +97,19 @@ const FeaturedProducts = () => {
 
             </div>
 
-            {/* ABOUT ELITEWRIST */}
-            <div className="mt-24 text-center max-w-4xl mx-auto">
+            {/* ABOUT */}
+            <div className="mt-20 md:mt-24 text-center max-w-4xl mx-auto px-2">
 
-                <p className="text-[#D4AF37] uppercase tracking-[5px] text-sm mb-5">
+                <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-sm mb-5">
 
                     About EliteWrist
 
                 </p>
 
-                <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight mb-6">
 
                     Crafted For
+
                     <span className="text-[#D4AF37]">
 
                         {" "}Timeless Luxury
@@ -117,16 +118,15 @@ const FeaturedProducts = () => {
 
                 </h2>
 
-                <p className="text-gray-400 leading-8 text-base md:text-lg mb-8">
+                <p className="text-gray-400 leading-7 md:leading-8 text-sm md:text-lg mb-8">
 
                     EliteWrist creates premium luxury watches designed
                     for visionaries who appreciate elegance, precision,
-                    and modern craftsmanship. Every timepiece reflects
-                    timeless identity and sophistication.
+                    and modern craftsmanship.
 
                 </p>
 
-                <button className="bg-[#D4AF37] text-black px-8 py-4 rounded-2xl font-semibold hover:scale-105 duration-300">
+                <button className="bg-[#D4AF37] text-black px-7 md:px-8 py-3 md:py-4 rounded-2xl font-semibold hover:scale-105 duration-300 text-sm md:text-base">
 
                     Discover Brand
 
@@ -135,18 +135,18 @@ const FeaturedProducts = () => {
             </div>
 
             {/* WHAT WE DELIVER */}
-            <div className="mt-24">
+            <div className="mt-20 md:mt-24">
 
                 {/* TITLE */}
-                <div className="text-center mb-14">
+                <div className="text-center mb-12 md:mb-14">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-sm mb-4">
+                    <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-sm mb-4">
 
                         What We Deliver
 
                     </p>
 
-                    <h2 className="text-3xl md:text-5xl font-bold">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold">
 
                         Luxury Experience
 
@@ -155,18 +155,18 @@ const FeaturedProducts = () => {
                 </div>
 
                 {/* CARDS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
 
                     {/* CARD 1 */}
-                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-8 min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
+                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-6 md:p-8 min-h-[180px] md:min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
 
-                        <h3 className="text-2xl font-bold mb-4 text-[#D4AF37]">
+                        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#D4AF37]">
 
                             Swiss Precision
 
                         </h3>
 
-                        <p className="text-gray-500 leading-7">
+                        <p className="text-gray-500 leading-7 text-sm md:text-base">
 
                             Crafted with premium engineering
                             for timeless performance and elegance.
@@ -176,15 +176,15 @@ const FeaturedProducts = () => {
                     </div>
 
                     {/* CARD 2 */}
-                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-8 min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
+                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-6 md:p-8 min-h-[180px] md:min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
 
-                        <h3 className="text-2xl font-bold mb-4 text-[#D4AF37]">
+                        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#D4AF37]">
 
                             Premium Materials
 
                         </h3>
 
-                        <p className="text-gray-500 leading-7">
+                        <p className="text-gray-500 leading-7 text-sm md:text-base">
 
                             Designed using luxury-grade metals,
                             sapphire glass, and elegant finishes.
@@ -194,15 +194,15 @@ const FeaturedProducts = () => {
                     </div>
 
                     {/* CARD 3 */}
-                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-8 min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
+                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-6 md:p-8 min-h-[180px] md:min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
 
-                        <h3 className="text-2xl font-bold mb-4 text-[#D4AF37]">
+                        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#D4AF37]">
 
                             Global Shipping
 
                         </h3>
 
-                        <p className="text-gray-500 leading-7">
+                        <p className="text-gray-500 leading-7 text-sm md:text-base">
 
                             Fast and secure worldwide delivery
                             with premium packaging experience.
@@ -212,15 +212,15 @@ const FeaturedProducts = () => {
                     </div>
 
                     {/* CARD 4 */}
-                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-8 min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
+                    <div className="bg-[#111] border border-[#222] rounded-[25px] p-6 md:p-8 min-h-[180px] md:min-h-[220px] flex flex-col justify-center hover:border-[#D4AF37] duration-300">
 
-                        <h3 className="text-2xl font-bold mb-4 text-[#D4AF37]">
+                        <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#D4AF37]">
 
                             24/7 Support
 
                         </h3>
 
-                        <p className="text-gray-500 leading-7">
+                        <p className="text-gray-500 leading-7 text-sm md:text-base">
 
                             Dedicated luxury support team
                             available anytime for assistance.
@@ -233,18 +233,19 @@ const FeaturedProducts = () => {
 
             </div>
 
-            {/* MOTTO SECTION */}
-            <div className="mt-24 text-center">
+            {/* MOTTO */}
+            <div className="mt-20 md:mt-24 text-center px-2">
 
-                <p className="text-[#D4AF37] uppercase tracking-[5px] text-sm mb-6">
+                <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-sm mb-6">
 
                     Our Philosophy
 
                 </p>
 
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight max-w-5xl mx-auto">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight max-w-5xl mx-auto">
 
                     Luxury Is Not Just Style.
+
                     <br />
 
                     <span className="text-[#D4AF37]">

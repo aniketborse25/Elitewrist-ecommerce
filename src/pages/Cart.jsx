@@ -36,17 +36,15 @@ const Cart = () => {
 
     const [phone, setPhone] = useState("");
 
-    const [paymentMethod, setPaymentMethod] = useState("CARD");
-
     // FETCH CART
     const getCart = async () => {
 
-        if (!user?.id) return;
+        if (!(user?.id || user?._id)) return;
 
         try {
 
             const res = await axios.get(
-                `https://elitewrist-api.onrender.com/api/v1/user/cart/${user.id}`
+                `https://elitewrist-api.onrender.com/api/v1/user/cart/${user?.id || user?._id}`
             );
 
             setCartItems(res.data.items);
@@ -75,7 +73,7 @@ const Cart = () => {
             await axios.put(
                 "https://elitewrist-api.onrender.com/api/v1/user/cart/update",
                 {
-                    userId: user.id,
+                    userId: user?.id || user?._id,
                     productId,
                     type,
                 }
@@ -102,7 +100,7 @@ const Cart = () => {
                 "https://elitewrist-api.onrender.com/api/v1/user/cart/remove",
                 {
                     data: {
-                        userId: user.id,
+                        userId: user?.id || user?._id,
                         productId,
                     },
                 }
@@ -119,10 +117,10 @@ const Cart = () => {
         }
 
     };
+
     // STRIPE PAYMENT
     const handleStripePayment = async () => {
 
-        // VALIDATION
         if (!shippingAddress || !phone) {
 
             alert("Please Fill All Details");
@@ -131,7 +129,6 @@ const Cart = () => {
 
         }
 
-        // PHONE VALIDATION
         if (phone.length !== 10 || isNaN(phone)) {
 
             alert("Enter Valid 10 Digit Phone Number");
@@ -152,7 +149,6 @@ const Cart = () => {
 
             );
 
-            // REDIRECT TO STRIPE
             window.location.href = response.data.url;
 
         }
@@ -208,26 +204,26 @@ const Cart = () => {
 
     return (
 
-        <div className="bg-black min-h-screen text-white px-6 py-14 md:px-10">
+        <div className="bg-black min-h-screen text-white px-4 md:px-6 py-12 md:py-14">
 
             <div className="max-w-7xl mx-auto">
 
                 {/* TOP */}
-                <div className="mb-14">
+                <div className="mb-12 md:mb-14 text-center md:text-left">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[6px] text-sm mb-4">
+                    <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[6px] text-[11px] md:text-sm mb-4">
 
                         Elite Checkout
 
                     </p>
 
-                    <h1 className="text-4xl md:text-5xl font-bold mb-5">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
 
                         Shopping Cart
 
                     </h1>
 
-                    <p className="text-gray-500 max-w-2xl leading-8">
+                    <p className="text-gray-500 max-w-2xl leading-7 md:leading-8 text-sm md:text-base mx-auto md:mx-0">
 
                         Review your luxury collection and complete
                         your premium shopping experience.
@@ -239,15 +235,15 @@ const Cart = () => {
                 {/* EMPTY CART */}
                 {cartItems.length === 0 ? (
 
-                    <div className="text-center py-32">
+                    <div className="text-center py-24 md:py-32">
 
-                        <h2 className="text-3xl font-bold mb-5">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-5">
 
                             Your Cart Is Empty
 
                         </h2>
 
-                        <p className="text-gray-500">
+                        <p className="text-gray-500 text-sm md:text-base">
 
                             Add premium watches to continue shopping.
 
@@ -257,54 +253,54 @@ const Cart = () => {
 
                 ) : (
 
-                    <div className="grid lg:grid-cols-3 gap-10">
+                    <div className="grid lg:grid-cols-3 gap-8 md:gap-10">
 
                         {/* LEFT SIDE */}
-                        <div className="lg:col-span-2 space-y-6">
+                        <div className="lg:col-span-2 space-y-5 md:space-y-6">
 
                             {cartItems.map((item) => (
 
                                 <div
                                     key={item._id}
-                                    className="bg-[#111] border border-[#222] rounded-[30px] p-5 flex flex-col sm:flex-row items-center gap-6 hover:border-[#D4AF37] duration-300"
+                                    className="bg-[#111] border border-[#222] rounded-[24px] md:rounded-[30px] p-4 md:p-5 flex flex-col sm:flex-row items-center gap-5 md:gap-6 hover:border-[#D4AF37] duration-300"
                                 >
 
                                     {/* IMAGE */}
-                                    <div className="bg-black rounded-[25px] p-4">
+                                    <div className="bg-black rounded-[20px] p-3">
 
                                         <img
                                             src={item.productId.image}
                                             alt={item.productId.name}
-                                            className="w-28 h-28 object-cover"
+                                            className="w-24 h-24 md:w-28 md:h-28 object-cover"
                                         />
 
                                     </div>
 
                                     {/* INFO */}
-                                    <div className="flex-1 w-full">
+                                    <div className="flex-1 w-full text-center sm:text-left">
 
                                         {/* NAME */}
-                                        <h2 className="text-2xl font-bold mb-3">
+                                        <h2 className="text-xl md:text-2xl font-bold mb-3">
 
                                             {item.productId.name}
 
                                         </h2>
 
                                         {/* QUANTITY */}
-                                        <div className="flex items-center gap-4 mb-4">
+                                        <div className="flex items-center justify-center sm:justify-start gap-4 mb-4">
 
                                             <button
                                                 onClick={() =>
                                                     updateQuantity(item.productId._id, "decrease")
                                                 }
-                                                className="w-9 h-9 rounded-full bg-[#222] text-white hover:bg-[#D4AF37] hover:text-black duration-300"
+                                                className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#222] text-white hover:bg-[#D4AF37] hover:text-black duration-300"
                                             >
 
                                                 -
 
                                             </button>
 
-                                            <span className="text-lg font-semibold">
+                                            <span className="text-base md:text-lg font-semibold">
 
                                                 {item.quantity}
 
@@ -314,7 +310,7 @@ const Cart = () => {
                                                 onClick={() =>
                                                     updateQuantity(item.productId._id, "increase")
                                                 }
-                                                className="w-9 h-9 rounded-full bg-[#222] text-white hover:bg-[#D4AF37] hover:text-black duration-300"
+                                                className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#222] text-white hover:bg-[#D4AF37] hover:text-black duration-300"
                                             >
 
                                                 +
@@ -324,7 +320,7 @@ const Cart = () => {
                                         </div>
 
                                         {/* PRICE */}
-                                        <p className="text-[#D4AF37] text-2xl font-bold">
+                                        <p className="text-[#D4AF37] text-xl md:text-2xl font-bold">
 
                                             ₹{item.productId.price * item.quantity}
 
@@ -335,7 +331,7 @@ const Cart = () => {
                                             onClick={() =>
                                                 removeItem(item.productId._id)
                                             }
-                                            className="mt-5 flex items-center gap-2 text-red-500 hover:text-red-400 duration-300"
+                                            className="mt-5 flex items-center justify-center sm:justify-start gap-2 text-red-500 hover:text-red-400 duration-300 text-sm md:text-base w-full sm:w-auto"
                                         >
 
                                             <Trash2 size={18} />
@@ -353,10 +349,10 @@ const Cart = () => {
                         </div>
 
                         {/* RIGHT SIDE */}
-                        <div className="bg-[#111] border border-[#222] rounded-[30px] p-8 h-fit sticky top-28">
+                        <div className="bg-[#111] border border-[#222] rounded-[24px] md:rounded-[30px] p-6 md:p-8 h-fit lg:sticky lg:top-28">
 
                             {/* TITLE */}
-                            <h2 className="text-3xl font-bold mb-8">
+                            <h2 className="text-2xl md:text-3xl font-bold mb-8">
 
                                 Checkout
 
@@ -370,7 +366,7 @@ const Cart = () => {
                                 onChange={(e) =>
                                     setShippingAddress(e.target.value)
                                 }
-                                className="w-full bg-black border border-[#333] rounded-xl px-4 py-4 mb-5 outline-none focus:border-[#D4AF37]"
+                                className="w-full bg-black border border-[#333] rounded-xl px-4 py-3 md:py-4 mb-5 outline-none focus:border-[#D4AF37] text-sm md:text-base"
                             />
 
                             {/* PHONE */}
@@ -381,19 +377,19 @@ const Cart = () => {
                                 onChange={(e) =>
                                     setPhone(e.target.value)
                                 }
-                                className="w-full bg-black border border-[#333] rounded-xl px-4 py-4 mb-5 outline-none focus:border-[#D4AF37]"
+                                className="w-full bg-black border border-[#333] rounded-xl px-4 py-3 md:py-4 mb-5 outline-none focus:border-[#D4AF37] text-sm md:text-base"
                             />
 
                             {/* TOTAL */}
                             <div className="flex justify-between items-center mb-8">
 
-                                <span className="text-lg text-gray-400">
+                                <span className="text-base md:text-lg text-gray-400">
 
                                     Total
 
                                 </span>
 
-                                <span className="text-3xl font-bold text-[#D4AF37]">
+                                <span className="text-2xl md:text-3xl font-bold text-[#D4AF37]">
 
                                     ₹{total}
 
@@ -404,7 +400,7 @@ const Cart = () => {
                             {/* PAYMENT BUTTON */}
                             <button
                                 onClick={handleStripePayment}
-                                className="w-full bg-[#D4AF37] text-black py-4 rounded-xl font-bold hover:scale-[1.02] duration-300"
+                                className="w-full bg-[#D4AF37] text-black py-3 md:py-4 rounded-xl font-bold hover:scale-[1.02] duration-300 text-sm md:text-base"
                             >
 
                                 Pay Now

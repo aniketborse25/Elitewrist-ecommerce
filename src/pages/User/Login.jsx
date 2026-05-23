@@ -46,18 +46,15 @@ const Login = () => {
                 }
             );
 
-            console.log("Login Response:", res.data);
-
-            // BACKEND RESPONSE
             const data = res.data;
 
-            // SAVE ONLY USER OBJECT
+            // SAVE USER
             localStorage.setItem(
                 "userdata",
                 JSON.stringify(data.user)
             );
 
-            // SAVE USER IN CONTEXT
+            // CONTEXT
             setUser(data.user);
 
             // REDIRECT
@@ -86,28 +83,29 @@ const Login = () => {
 
     return (
 
-        <div className="min-h-screen bg-black flex items-center justify-center px-6">
+        <div className="min-h-screen bg-black flex items-center justify-center px-4 md:px-6 py-10">
 
-            <div className="bg-[#111] border border-[#222] rounded-[35px] p-10 w-full max-w-md">
+            <div className="bg-[#111] border border-[#222] rounded-[28px] md:rounded-[35px] p-6 sm:p-8 md:p-10 w-full max-w-md">
 
                 {/* TITLE */}
-                <div className="text-center mb-10">
+                <div className="text-center mb-8 md:mb-10">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-xs mb-4">
+                    <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-xs mb-4">
 
                         EliteWrist
 
                     </p>
 
-                    <h1 className="text-white text-4xl font-bold mb-3">
+                    <h1 className="text-white text-3xl sm:text-4xl font-bold mb-3">
 
                         Welcome Back
 
                     </h1>
 
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-sm md:text-base">
 
                         EliteWrist Member Access
+
                     </p>
 
                 </div>
@@ -115,7 +113,7 @@ const Login = () => {
                 {/* FORM */}
                 <form
                     onSubmit={handleSubmit}
-                    className="space-y-6"
+                    className="space-y-5 md:space-y-6"
                 >
 
                     {/* EMAIL */}
@@ -133,7 +131,7 @@ const Login = () => {
                             placeholder="Enter your email"
                             value={loginData.email}
                             onChange={handleChange}
-                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-4 md:px-5 py-3 md:py-4 text-white outline-none focus:border-[#D4AF37] text-sm md:text-base"
                             required
                         />
 
@@ -154,9 +152,23 @@ const Login = () => {
                             placeholder="Enter your password"
                             value={loginData.password}
                             onChange={handleChange}
-                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-5 py-4 text-white outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-black border border-[#2a2a2a] rounded-2xl px-4 md:px-5 py-3 md:py-4 text-white outline-none focus:border-[#D4AF37] text-sm md:text-base"
                             required
                         />
+
+                    </div>
+
+                    {/* FORGOT PASSWORD */}
+                    <div className="text-right">
+
+                        <Link
+                            to="/forgot-password"
+                            className="text-sm text-gray-400 hover:text-[#D4AF37] duration-300"
+                        >
+
+                            Forgot Password?
+
+                        </Link>
 
                     </div>
 
@@ -164,23 +176,23 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold text-lg hover:opacity-90 duration-300"
+                        className="w-full bg-[#D4AF37] text-black py-3 md:py-4 rounded-2xl font-bold text-base md:text-lg hover:opacity-90 duration-300"
                     >
 
-                        Login
+                        {loading ? "Loading..." : "Login"}
 
                     </button>
 
                 </form>
 
                 {/* REGISTER */}
-                <p className="text-gray-400 mt-8 text-center text-sm">
+                <p className="text-gray-400 mt-7 md:mt-8 text-center text-sm">
 
                     Don't have an account?{" "}
 
                     <Link
                         to="/register"
-                        className="text-[#D4AF37]"
+                        className="text-[#D4AF37] hover:underline"
                     >
 
                         Register

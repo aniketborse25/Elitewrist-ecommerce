@@ -17,13 +17,10 @@ const Navbar = () => {
 
     const navigate = useNavigate();
 
-    // USER CONTEXT
     const { user } = useContext(UserContext);
 
-    // CART COUNT
     const [cartCount, setCartCount] = useState(0);
 
-    // SEARCH
     const [showSearch, setShowSearch] = useState(false);
 
     const [search, setSearch] = useState("");
@@ -34,7 +31,7 @@ const Navbar = () => {
         const getCart = async () => {
 
             // NO USER
-            if (!user?.id) {
+            if (!(user?.id || user?._id)) {
 
                 setCartCount(0);
 
@@ -45,7 +42,7 @@ const Navbar = () => {
             try {
 
                 const res = await axios.get(
-                    `https://elitewrist-api.onrender.com/api/v1/user/cart/${user?.id}`
+                    `https://elitewrist-api.onrender.com/api/v1/user/cart/${user?.id || user?._id}`
                 );
 
                 const totalQuantity = (res.data.items || []).reduce(
@@ -69,22 +66,19 @@ const Navbar = () => {
 
     }, [user]);
 
-    // SEARCH PRODUCT
+    // SEARCH
     const handleSearch = (e) => {
 
         e.preventDefault();
 
-        // EMPTY
         if (!search.trim()) {
 
             return;
 
         }
 
-        // REDIRECT
         navigate(`/collection?search=${search}`);
 
-        // CLOSE SEARCH
         setShowSearch(false);
 
     };
@@ -93,26 +87,25 @@ const Navbar = () => {
 
         <nav className="bg-black text-white sticky top-0 z-50 border-b border-[#1a1a1a]">
 
-            <div className="max-w-7xl mx-auto px-6 py-5 grid grid-cols-3 items-center">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 grid grid-cols-3 items-center">
 
-                {/* LEFT - LOGO */}
-                <div className="flex justify-start">
+                {/* LEFT LOGO */}
+                <div className="flex justify-start z-50">
 
                     <Link
                         to="/"
-                        className="flex items-center"
+                        className="flex items-center cursor-pointer"
                     >
 
                         <img
                             src="/images/LOGO.png"
                             alt="EliteWrist Logo"
-                            className="h-12 scale-150 origin-left w-auto object-contain"
+                            className="h-9 md:h-12 scale-125 md:scale-150 origin-left w-auto object-contain"
                         />
 
                     </Link>
 
                 </div>
-
                 {/* CENTER MENU */}
                 <div className="hidden md:flex items-center justify-center gap-10 text-sm tracking-[2px] uppercase">
 
@@ -146,7 +139,7 @@ const Navbar = () => {
                 </div>
 
                 {/* RIGHT SIDE */}
-                <div className="flex items-center justify-end gap-6">
+                <div className="flex items-center justify-end gap-4 md:gap-6">
 
                     {/* SEARCH */}
                     <button
@@ -158,11 +151,11 @@ const Navbar = () => {
 
                         {showSearch ? (
 
-                            <X size={22} />
+                            <X size={20} />
 
                         ) : (
 
-                            <Search size={22} />
+                            <Search size={20} />
 
                         )}
 
@@ -174,9 +167,8 @@ const Navbar = () => {
                         className="relative hover:text-[#D4AF37] duration-300"
                     >
 
-                        <ShoppingCart size={22} />
+                        <ShoppingCart size={20} />
 
-                        {/* CART COUNT */}
                         {user && cartCount > 0 && (
 
                             <span className="absolute -top-2 -right-2 bg-[#D4AF37] text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">
@@ -200,8 +192,8 @@ const Navbar = () => {
                             user?.profileImage ? (
 
                                 <img
-                                    src={user.profileImage}
-                                    alt={user.name}
+                                    src={user?.profileImage || "/images/default-user.png"}
+                                    alt={user?.name}
                                     className="w-9 h-9 rounded-full object-cover border border-[#D4AF37]"
                                 />
 
@@ -217,7 +209,7 @@ const Navbar = () => {
 
                         ) : (
 
-                            <UserCircle2 size={28} />
+                            <UserCircle2 size={24} />
 
                         )}
 
@@ -230,11 +222,11 @@ const Navbar = () => {
             {/* SEARCH BAR */}
             {showSearch && (
 
-                <div className="border-t border-[#1a1a1a] px-6 py-5 bg-black">
+                <div className="border-t border-[#1a1a1a] px-4 md:px-6 py-5 bg-black">
 
                     <form
                         onSubmit={handleSearch}
-                        className="max-w-3xl mx-auto flex gap-4"
+                        className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4"
                     >
 
                         {/* INPUT */}
@@ -245,13 +237,13 @@ const Navbar = () => {
                             onChange={(e) =>
                                 setSearch(e.target.value)
                             }
-                            className="flex-1 bg-[#111] border border-[#2a2a2a] rounded-2xl px-6 py-4 outline-none focus:border-[#D4AF37]"
+                            className="flex-1 bg-[#111] border border-[#2a2a2a] rounded-2xl px-5 py-4 outline-none focus:border-[#D4AF37]"
                         />
 
                         {/* BUTTON */}
                         <button
                             type="submit"
-                            className="bg-[#D4AF37] text-black px-8 rounded-2xl font-semibold hover:opacity-90 duration-300"
+                            className="bg-[#D4AF37] text-black px-8 py-4 rounded-2xl font-semibold hover:opacity-90 duration-300"
                         >
 
                             Search

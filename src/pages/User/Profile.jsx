@@ -43,15 +43,15 @@ const Profile = () => {
 
     return (
 
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-16">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-6 py-10 md:py-16">
 
             {/* CARD */}
-            <div className="w-full max-w-sm bg-[#111] border border-[#222] rounded-[35px] p-8 hover:border-[#D4AF37] duration-500">
+            <div className="w-full max-w-sm bg-[#111] border border-[#222] rounded-[28px] md:rounded-[35px] p-6 sm:p-7 md:p-8 hover:border-[#D4AF37] duration-500">
 
                 {/* TOP */}
                 <div className="text-center mb-8">
 
-                    <p className="text-[#D4AF37] uppercase tracking-[5px] text-xs mb-4">
+                    <p className="text-[#D4AF37] uppercase tracking-[4px] md:tracking-[5px] text-[11px] md:text-xs mb-4">
 
                         Elite Profile
 
@@ -63,37 +63,38 @@ const Profile = () => {
                         <img
                             src={user.profileImage}
                             alt={user?.name}
-                            className="w-24 h-24 rounded-full object-cover border-2 border-[#D4AF37] mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.25)]"
+                            className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-[#D4AF37] mx-auto mb-5 md:mb-6 shadow-[0_0_30px_rgba(212,175,55,0.25)]"
                         />
 
                     ) : (
 
-                        <div className="w-24 h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-4xl font-bold mx-auto mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-3xl md:text-4xl font-bold mx-auto mb-5 md:mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
 
                             {user?.name?.charAt(0)?.toUpperCase() || "U"}
 
                         </div>
 
                     )}
+
                     {/* NAME */}
-                    <h1 className="text-3xl font-bold mb-3">
+                    <h1 className="text-2xl md:text-3xl font-bold mb-3 break-words">
 
                         {user?.name || "Elite User"}
 
                     </h1>
 
                     {/* EMAIL */}
-                    <p className="text-gray-500 text-sm break-all leading-7">
+                    <p className="text-gray-500 text-xs sm:text-sm break-all leading-6 md:leading-7 px-2">
 
                         {user?.email || "No Email"}
 
                     </p>
 
                     {/* LINE */}
-                    <div className="w-14 h-[2px] bg-[#D4AF37] mx-auto my-6 rounded-full"></div>
+                    <div className="w-12 md:w-14 h-[2px] bg-[#D4AF37] mx-auto my-5 md:my-6 rounded-full"></div>
 
                     {/* MEMBER */}
-                    <p className="text-[#D4AF37] uppercase tracking-[4px] text-[11px]">
+                    <p className="text-[#D4AF37] uppercase tracking-[3px] md:tracking-[4px] text-[10px] md:text-[11px]">
 
                         EliteWrist Member
 
@@ -107,7 +108,7 @@ const Profile = () => {
                     {/* EDIT PROFILE */}
                     <button
                         onClick={() => navigate("/edit-profile")}
-                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
+                        className="w-full bg-[#D4AF37] text-black py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300 text-sm md:text-base"
                     >
 
                         Edit Profile
@@ -117,7 +118,7 @@ const Profile = () => {
                     {/* ORDERS */}
                     <button
                         onClick={() => navigate("/orders")}
-                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
+                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300 text-sm md:text-base"
                     >
 
                         My Orders
@@ -127,7 +128,7 @@ const Profile = () => {
                     {/* HOME */}
                     <button
                         onClick={() => navigate("/")}
-                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300"
+                        className="w-full border border-[#2a2a2a] py-3 rounded-2xl hover:border-[#D4AF37] hover:text-[#D4AF37] duration-300 text-sm md:text-base"
                     >
 
                         Back To Home
@@ -137,7 +138,7 @@ const Profile = () => {
                     {/* LOGOUT */}
                     <button
                         onClick={handleLogout}
-                        className="w-full border border-red-500 text-red-400 py-3 rounded-2xl hover:bg-red-500 hover:text-white duration-300"
+                        className="w-full border border-red-500 text-red-400 py-3 rounded-2xl hover:bg-red-500 hover:text-white duration-300 text-sm md:text-base"
                     >
 
                         Logout

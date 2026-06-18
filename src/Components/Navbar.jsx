@@ -82,67 +82,13 @@ const Navbar = () => {
 
         <nav className="bg-black/95 backdrop-blur-md text-white sticky top-0 z-50 border-b border-[#1a1a1a]">
 
-            {/* NAV CONTAINER */}
+            {/* NAVBAR */}
             <div className="max-w-7xl mx-auto px-4 md:px-6 h-[72px] md:h-[85px] flex items-center justify-between">
 
-                {/* LEFT MENU */}
-                <div className="hidden md:flex items-center gap-10 text-sm tracking-[2px] uppercase">
+                {/* LEFT SIDE */}
+                <div className="flex items-center gap-8 md:gap-12">
 
-                    <Link
-                        to="/"
-                        className="hover:text-[#D4AF37] duration-300"
-                    >
-
-                        Home
-
-                    </Link>
-
-                    <Link
-                        to="/collection"
-                        className="hover:text-[#D4AF37] duration-300"
-                    >
-
-                        Collection
-
-                    </Link>
-
-                    <Link
-                        to="/brand"
-                        className="hover:text-[#D4AF37] duration-300"
-                    >
-
-                        Brand
-
-                    </Link>
-
-                </div>
-
-                {/* MOBILE LEFT */}
-                <div className="md:hidden flex items-center gap-4">
-
-                    {/* SEARCH */}
-                    <button
-                        onClick={() => setShowSearch(!showSearch)}
-                        className="hover:text-[#D4AF37] duration-300"
-                    >
-
-                        {showSearch ? (
-
-                            <X size={21} />
-
-                        ) : (
-
-                            <Search size={21} />
-
-                        )}
-
-                    </button>
-
-                </div>
-
-                {/* CENTER LOGO */}
-                <div className="absolute left-1/2 -translate-x-1/2">
-
+                    {/* LOGO */}
                     <Link
                         to="/"
                         className="flex items-center cursor-pointer"
@@ -156,15 +102,47 @@ const Navbar = () => {
 
                     </Link>
 
+                    {/* DESKTOP MENU */}
+                    <div className="hidden md:flex items-center gap-8 lg:gap-10 text-sm tracking-[2px] uppercase">
+
+                        <Link
+                            to="/"
+                            className="hover:text-[#D4AF37] duration-300"
+                        >
+
+                            Home
+
+                        </Link>
+
+                        <Link
+                            to="/collection"
+                            className="hover:text-[#D4AF37] duration-300"
+                        >
+
+                            Collection
+
+                        </Link>
+
+                        <Link
+                            to="/brand"
+                            className="hover:text-[#D4AF37] duration-300"
+                        >
+
+                            Brand
+
+                        </Link>
+
+                    </div>
+
                 </div>
 
                 {/* RIGHT SIDE */}
                 <div className="flex items-center gap-4 md:gap-6">
 
-                    {/* DESKTOP SEARCH */}
+                    {/* SEARCH */}
                     <button
                         onClick={() => setShowSearch(!showSearch)}
-                        className="hidden md:block hover:text-[#D4AF37] duration-300"
+                        className="hover:text-[#D4AF37] duration-300"
                     >
 
                         {showSearch ? (

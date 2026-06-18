@@ -61,12 +61,7 @@ const EditProfile = () => {
             setUpdateLoading(true);
 
             // FORM DATA
-            const formData = new FormData();
 
-            formData.append(
-                "userId",
-                user.id || user._id
-            );
 
             formData.append("name", name);
 
@@ -80,6 +75,8 @@ const EditProfile = () => {
                 );
 
             }
+            // token 
+            const token = localStorage.getItem("token");
 
             // API REQUEST
             const res = await axios.put(
@@ -90,6 +87,7 @@ const EditProfile = () => {
 
                 {
                     headers: {
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data",
                     },
                 }

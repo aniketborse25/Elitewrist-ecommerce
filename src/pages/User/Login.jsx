@@ -53,6 +53,11 @@ const Login = () => {
                 "userdata",
                 JSON.stringify(data.user)
             );
+            //token
+            localStorage.setItem(
+                "token",
+                data.token
+            );
 
             // CONTEXT
             setUser(data.user);

@@ -43,7 +43,11 @@ const Login = () => {
                 {
                     email: loginData.email,
                     password: loginData.password,
+                },
+                {
+                    withCredentials: true,
                 }
+
             );
 
             const data = res.data;

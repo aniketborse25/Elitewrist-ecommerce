@@ -24,6 +24,19 @@ const EditProfile = () => {
 
     const [updateLoading, setUpdateLoading] = useState(false);
 
+    // LOAD USER DATA
+    useEffect(() => {
+
+        if (user) {
+
+            setName(user?.name || "");
+
+            setAddress(user?.address || "");
+
+        }
+
+    }, [user]);
+
     // LOADING
     if (loading) {
 
@@ -38,18 +51,7 @@ const EditProfile = () => {
 
     }
 
-    // LOAD USER DATA
-    useEffect(() => {
 
-        if (user) {
-
-            setName(user?.name || "");
-
-            setAddress(user?.address || "");
-
-        }
-
-    }, [user]);
 
     // UPDATE PROFILE
     const handleUpdate = async (e) => {
@@ -62,6 +64,7 @@ const EditProfile = () => {
 
             // FORM DATA
 
+            const formData = new FormData();
 
             formData.append("name", name);
 
@@ -76,24 +79,16 @@ const EditProfile = () => {
 
             }
             // token 
-            const token = localStorage.getItem("token");
-
-            // API REQUEST
             const res = await axios.put(
-
                 "https://elitewrist-api.onrender.com/api/v1/admin/users/update-profile",
-
                 formData,
-
                 {
+                    withCredentials: true,
                     headers: {
-                        Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data",
                     },
                 }
-
             );
-
             // UPDATE STORAGE
             localStorage.setItem(
                 "userdata",

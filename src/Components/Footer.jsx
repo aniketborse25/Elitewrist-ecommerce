@@ -78,6 +78,12 @@ const Footer = () => {
               Profile
 
             </Link>
+            <Link
+              to="/contact"
+              className="hover:text-[#D4AF37] duration-300"
+            >
+              Contact Us
+            </Link>
 
           </div>
 
@@ -96,7 +102,7 @@ const Footer = () => {
 
             <p>
 
-              support@elitewrist.com
+              elitewristofficial@gmail.com
 
             </p>
 

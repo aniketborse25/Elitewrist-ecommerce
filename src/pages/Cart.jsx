@@ -118,6 +118,7 @@ const Cart = () => {
 
     };
 
+
     // STRIPE PAYMENT
     const handleStripePayment = async () => {
 
@@ -127,6 +128,12 @@ const Cart = () => {
 
             return;
 
+        }
+
+        if (shippingAddress.trim().length < 10) {
+
+            alert("Please enter complete address");
+            return;
         }
 
         if (phone.length !== 10 || isNaN(phone)) {

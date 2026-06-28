@@ -148,7 +148,15 @@ const Cart = () => {
                 }
 
             );
+            localStorage.setItem(
+                "shippingAddress",
+                shippingAddress
+            );
 
+            localStorage.setItem(
+                "phone",
+                phone
+            );
             window.location.href = response.data.url;
 
         }

@@ -1,6 +1,53 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Success = () => {
+    useEffect(() => {
+
+        console.log("SUCCESS PAGE LOADED");
+
+        const createOrder = async () => {
+
+            console.log("CREATE ORDER STARTED");
+
+            try {
+
+                const user = JSON.parse(
+                    localStorage.getItem("userdata")
+                );
+
+                console.log("USER", user);
+
+                console.log(
+                    "ADDRESS",
+                    localStorage.getItem("shippingAddress")
+                );
+
+                const res = await axios.post(
+                    "https://elitewrist-api.onrender.com/api/v1/user/order/checkout",
+                    {
+                        userId: user.id,
+                        shippingAddress:
+                            localStorage.getItem("shippingAddress"),
+                    }
+                );
+
+                console.log("ORDER RESPONSE", res.data);
+
+            } catch (error) {
+
+                console.log(
+                    "ORDER ERROR",
+                    error.response?.data || error
+                );
+
+            }
+        };
+
+        createOrder();
+
+    }, []);
 
     return (
 

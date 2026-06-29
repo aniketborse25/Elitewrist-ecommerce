@@ -26,7 +26,7 @@ const Contact = () => {
                 name: "", email: "", phone: "", message: "",
             });
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
 
             alert(
                 error?.response?.data?.message || "Something went to wrong"

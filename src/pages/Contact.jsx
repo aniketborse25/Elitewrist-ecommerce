@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 const Contact = () => {
     const [formData, setFormData] = useState({
-        name: "", email: "", Phone: "", message: "",
+        name: "", email: "", phone: "", message: "",
     });
     const [loading, setLoading] = useState(false);
     const handleChange = (e) => {
@@ -26,6 +26,7 @@ const Contact = () => {
                 name: "", email: "", phone: "", message: "",
             });
         } catch (error) {
+            console.log(error);
             console.log(error.response.data);
 
             alert(

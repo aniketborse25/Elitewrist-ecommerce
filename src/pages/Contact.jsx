@@ -18,7 +18,7 @@ const Contact = () => {
         try {
             setLoading(true);
 
-            const res = await axios.post("http://elitewrist-api.onrender.com/api/v1/contact", formData);
+            const res = await axios.post("https://elitewrist-api.onrender.com/api/v1/contact", formData);
 
             alert(res.data.message);
 
